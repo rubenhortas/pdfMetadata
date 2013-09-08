@@ -286,8 +286,7 @@ def __Write_to_file(f_log, name_info, info, log_format, sep):
                 f_log.write(info + sep)
             else:
                 f_log.write(info)
-    else:
-        if log_format is 'csv':
+    elif log_format is 'csv':
             f_log.write(sep)
 
 
