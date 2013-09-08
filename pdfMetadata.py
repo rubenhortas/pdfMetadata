@@ -197,8 +197,8 @@ def Log(name, pdf, log_file, log_format):
 
     f_log = open(log_file, 'ab')
 
-    #Write csv header
-    if log_format is 'csv':
+    #Write csv header if file is empty
+    if log_format is 'csv' and os.stat(log_file).st_size == 0:
         f_log.write('#File name, Author, Creator, Subject, Producer, ' +
                     'Creation date, Modification date, Encrypted, ' +
                     'Pages, Size\n')
@@ -286,8 +286,7 @@ def __Write_to_file(f_log, name_info, info, log_format, sep):
                 f_log.write(info + sep)
             else:
                 f_log.write(info)
-    else:
-        if log_format is 'csv':
+    elif log_format is 'csv':
             f_log.write(sep)
 
 
