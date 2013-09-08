@@ -1,0 +1,10 @@
+- Ampliar metadata -> destinations -> getNamedDEstinations(), etc
+
+x Comprobar nombres de fichero en utf8 -> no lo puedo reproducir :(
+
+v Arreglar la ayuda con los parámetros
+    Si no se mete ninguno suelta un erroraco del 15
+v Corregir lo de si existe el log
+
+v xxx ficheros de xxx
+    [110/300] procesados (cuando es un directorio)
