@@ -53,10 +53,10 @@ CONTACT
     If you have problems, questions, ideas or suggestions, you can
     contribute with this little project in the github repository
 
-    https://github.com/rubenhortas/pdfmetadata
+    https://github.com/rubenhortas/pdfMetadata
 
 WEB SITE
 
     Visit the pdfMetadata github site for the lastest news and downloads:
 
-    https://github.com/rubenhortas/pdfmetadata
+    https://github.com/rubenhortas/pdfMetadata
