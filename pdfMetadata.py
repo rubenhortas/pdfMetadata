@@ -197,12 +197,6 @@ def Log(name, pdf, log_file, log_format):
 
     f_log = open(log_file, 'ab')
 
-    #Write csv header if file is empty
-    if log_format is 'csv' and os.stat(log_file).st_size == 0:
-        f_log.write('#File name, Author, Creator, Subject, Producer, ' +
-                    'Creation date, Modification date, Encrypted, ' +
-                    'Pages, Size\n')
-
     #Write metadata
     __Write_to_file(f_log, 'File', name, log_format, sep)
     __Write_to_file(f_log, 'Author', pdf.author, log_format, sep)
@@ -308,7 +302,7 @@ def __Format_date(input_date):
 
 def __Get_info(file_path, plain_log, csv_log, analyzed_files, total_files):
     """
-    Get_info(file_path)
+    __Get_info(file_path)
         Opens the pdf file for reading.
     Args:
         - file_path: (string) Absolute file path.
@@ -374,7 +368,7 @@ def Get_info(file_path):
 
 def __Scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
     """
-    Scan_fulldir(dir_name, plain_log, csv_log)
+    __Scan_fulldir(dir_name, plain_log, csv_log)
         Scans an entire directory looking for pdf files to display its
         metadata.
     Args:
@@ -429,6 +423,11 @@ if __name__ == '__main__':
 
     if args.csv is not None:
         f_log_csv = __Log_checks(args.csv, 'csv')
+        f_log = open(f_log_csv, 'w')
+        f_log.write('#File name, Author, Creator, Subject, Producer, ' +
+                        'Creation date, Modification date, Encrypted, ' + 
+                        'Pages, Size\n')
+        f_log.close
     else:
         f_log_csv = None
 
