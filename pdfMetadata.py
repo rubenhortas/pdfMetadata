@@ -405,6 +405,7 @@ def Scan_fulldir(path):
 
 if __name__ == '__main__':
 
+    parser = argparse.ArgumentParser(program='pdfMetadata')
     parser = argparse.ArgumentParser(description='Scan pdf files \
                                      looking for their metadata.')
     parser.add_argument('targets',
