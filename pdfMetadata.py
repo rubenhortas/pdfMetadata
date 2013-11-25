@@ -380,9 +380,14 @@ def __Scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
         for f in files:
             if f.endswith('.pdf'):
                 file_path = os.path.join(root, f)
-                analyzed_files, total_files = __Get_info(file_path, plain_log, csv_log, analyzed_files, total_files)
+                analyzed_files, total_files = __Get_info(file_path,
+                                                         plain_log,
+                                                         csv_log,
+                                                         analyzed_files,
+                                                         total_files)
 
     return analyzed_files, total_files
+
 
 def Scan_fulldir(path):
     """
@@ -425,8 +430,8 @@ if __name__ == '__main__':
         f_log_csv = __Log_checks(args.csv, 'csv')
         f_log = open(f_log_csv, 'w')
         f_log.write('#File name, Author, Creator, Subject, Producer, ' +
-                        'Creation date, Modification date, Encrypted, ' + 
-                        'Pages, Size\n')
+                    'Creation date, Modification date, Encrypted,' +
+                    ' Pages, Size\n')
         f_log.close
     else:
         f_log_csv = None
@@ -456,5 +461,5 @@ if __name__ == '__main__':
         if f_log_csv is not None:
             __Print_info('Saved to: ' + f_log_csv)
 
-        __Print_info('Analyzed files: ' +str(analyzed_files) + '/' +
+        __Print_info('Analyzed files: ' + str(analyzed_files) + '/' +
                      str(total_files) + '.')
