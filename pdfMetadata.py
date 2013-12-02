@@ -254,10 +254,9 @@ class log:
         if self.ext is '.csv':
             f_log = open(self.fname, 'w')
             f_log.__write('#File name, Title, Author, Creator, Subject,'
-                        ' Producer, Creation date, Modification date,'
-                        ' Encrypted, Pages, Size\n')
+                          ' Producer, Creation date, Modification date,'
+                          ' Encrypted, Pages, Size\n')
             f_log.close()
-
 
     def __Check_if_exists(self):
         """
