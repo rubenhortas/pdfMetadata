@@ -1,10 +1,3 @@
-- Ampliar metadata -> destinations -> getNamedDEstinations(), etc
-
-x Comprobar nombres de fichero en utf8 -> no lo puedo reproducir :(
-
-v Arreglar la ayuda con los parámetros
-    Si no se mete ninguno suelta un erroraco del 15
-v Corregir lo de si existe el log
-
-v xxx ficheros de xxx
-    [110/300] procesados (cuando es un directorio)
+- FIX problem with IndirectObjects in pdf_metadata.Parse_info
+		http://stackoverflow.com/questions/436474/pypdf-for-indirectobject-extraction
+ - IMPROVE the file counter? If is error then not count it as analyzed.
