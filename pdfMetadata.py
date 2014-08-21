@@ -34,7 +34,7 @@ class color:
 class tag:
     """
     Class tag
-        Defines the tags for each message type shown in the ouput.
+        Defines the tags for each message shown in the output.
     """
     file_name = '[*] '
     info = '\t[+]'
