@@ -21,7 +21,7 @@ from datetime import datetime
 class color:
     """
     Class color
-        Colors the text to display it in the output.
+        Colorizes the text to display in the output.
     """
     bold = '\033[1m'
     green = '\033[32m'
