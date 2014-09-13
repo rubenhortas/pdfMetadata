@@ -51,7 +51,7 @@ USAGE
 CONTACT
 
     If you have problems, questions, ideas or suggestions, you can
-    contribute with this little project in the github repository
+    contribute with this little project in the github repository:
 
     https://github.com/rubenhortas/pdfMetadata
 
