@@ -7,7 +7,7 @@ pdfMetadata
 AUTHOR
 
     Rubén Hortas
-    Contact: rubenhortas@gmail.com
+    Contact: rubenhortas at gmail.com
     Website: http://www.rubenhortas.blogspot.com.es
 
 LICENSE
