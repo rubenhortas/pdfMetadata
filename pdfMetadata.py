@@ -1,51 +1,25 @@
 #!/usr/bin/env python
-#_*_ coding: utf-8 _*_
+# _*_ coding:utf-8 _*
 
 """
-File:       pdfMetadata.py
-Version:    2.0
-Author:     Rubén Hortas <rubenhortas@gmail.com>
-Website:    http://rubenhortas.blogspot.com.es
-Github:     http://github.com/rubenhortas/pdfmetadata
-License:    CC BY-NC-SA 3.0
-            http://creativecommons.org/licenses/by-nc-sa/3.0/
+@author:    Rubén Hortas Astariz <http://rubenhortas.blogspot.com>
+@contact:   rubenhortas at gmail.com
+@github:    http://githug.com/rubenhortas/rhardening
+@license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+@status:    Developing
+@version:   alpha
+@file:      pdfMetadata.py
 """
 
+from PyPDF2 import PdfFileReader
+from datetime import datetime
 import argparse
 import os
 import sys
-from PyPDF2 import PdfFileReader
-from datetime import datetime
 
-
-class color:
+class Pdf_metadata:
     """
-    Class color
-        Colorizes the text to display in the output.
-    """
-    bold = '\033[1m'
-    green = '\033[32m'
-    bold_green = '\033[1m\033[32m'
-    red = '\033[31m'
-    bold_red = '\033[1m\033[31m'
-    end = '\033[0m'
-
-
-class tag:
-    """
-    Class tag
-        Defines the tags for each message shown in the output.
-    """
-    file_name = '[*] '
-    info = '\t[+]'
-    info_green = '\t[' + color.bold_red + '+' + color.end + ']'
-    info_msg = '[!]'
-    error = '[' + color.red + color.bold + '+' + color.end + ']'
-
-
-class pdf_metadata:
-    """
-    Class pdf_metadata
+    Class Pdf_metadata
         Stores the data and operations relatives to the pdf
         (metadata, pages, size...).
     """
@@ -68,7 +42,7 @@ class pdf_metadata:
             - Try to open the pdf.
             - Get the metadata.
             - Print the metadata.
-        Args:
+        Arguments:
             - file_path: (string) Absolute file path.
         """
         self.abs_path = file_path
@@ -77,22 +51,22 @@ class pdf_metadata:
         # Try to open the pdf for read the metadata
         try:
             pdf_file = PdfFileReader(file(self.abs_path, 'rb'))
-            self.encrypted = self.__Is_encrypted(pdf_file)
+            self.encrypted = self.__is_encrypted(pdf_file)
             doc_info = pdf_file.getDocumentInfo()
             if doc_info:
-                self.__Parse_info(doc_info)
-                self.__Print_metadata()
+                self.__parse_info(doc_info)
+                self.__print_metadata()
 
         except Exception, e:
             if 'encode' not in str(e):
                 message('error', self.name + ' ' + str(e))
                 print
 
-    def __Is_encrypted(self, pdf_file):
+    def __is_encrypted(self, pdf_file):
         """
-        __Is_encrypted(self, pdf_file)
+        __is_encrypted(self, pdf_file)
             Return if pdf_file is encrypted or not.
-        Args:
+        Arguments:
             - pdf_file: (pdfFileReader) PDF file.
         """
         if pdf_file.getIsEncrypted:
@@ -106,11 +80,11 @@ class pdf_metadata:
         else:
             return 'No'
 
-    def __Parse_info(self, doc_info):
+    def __parse_info(self, doc_info):
         """
-        __Parse_info(self, doc_info)
+        __parse_info(self, doc_info)
             Parses the metadata.
-        Args:
+        Arguments:
             - doc_info: (pdfFileReader.getDocumentInfo()) Metadata.
         """
         title = doc_info.get('/Title', None)
@@ -137,17 +111,17 @@ class pdf_metadata:
 
         c_date = doc_info.get('/CreationDate', None)
         if c_date:
-            self.creation_date = self.__Format_date(c_date)
+            self.creation_date = self.__format_date(c_date)
 
         m_date = doc_info.get('/ModDate', None)
         if m_date:
-            self.modification_date = self.__Format_date(m_date)
+            self.modification_date = self.__format_date(m_date)
 
-    def __Format_date(self, input_date):
+    def __format_date(self, input_date):
         """
-        __Format_date(self, input_date)
+        __format_date(self, input_date)
             Converts the dates of metadata to a readable format.
-        Args:
+        Arguments:
             input_date: (string) Metadata date.
         """
         try:
@@ -174,9 +148,9 @@ class pdf_metadata:
             print
             return None
 
-    def __Print_metadata(self):
+    def __print_metadata(self):
         """
-        __Print_metadata(self)
+        __print_metadata(self)
             Displays the metadata in a nice format.
         """
 
@@ -219,167 +193,18 @@ class pdf_metadata:
         print
 
 
-class log:
+def get_info(file_abs_path):
     """
-    Class log
-        Stores the info and operations relatives to the log files.
-    """
-    name = None     # name
-    ext = None      # ext
-    sep = None      # field separator
-    fname = None    # name.ext
-
-    def __init__(self, name, ext):
-        """
-        __init__(self, name, ext)
-            Chooses the name of the file.
-            If is a csv, also writes the header.
-        """
-        self.ext = '.' + ext
-        if name.endswith(ext):
-            self.name = name.replace(self.ext, '').strip()
-            self.fname = name
-        else:
-            self.name = name.strip()
-            self.fname = self.name + self.ext
-
-        if ext == 'txt':
-            self.sep = '\n'
-        else:
-            self.sep = ','
-
-        self.__Check_if_exists()
-
-        # If csv, then write file header
-        if self.ext is '.csv':
-            f_log = open(self.fname, 'w')
-            f_log.__write('#File name, Title, Author, Creator, Subject,'
-                          ' Producer, Creation date, Modification date,'
-                          ' Encrypted, Pages, Size\n')
-            f_log.close()
-
-    def __Check_if_exists(self):
-        """
-        __Check_if_exists(self)
-            Checks if file exists.
-            It exists, rename the log file.
-        """
-        # Check if target log file is a dir
-        # It happens in real world...
-        if os.path.isdir(self.fname):
-            message('info', self.fname + ' is a dir.')
-            # Create another log file
-            self.fname = 'pdfMetadataLog'
-
-        # Check if log_file already exists
-        if os.path.exists(self.fname):
-            message('info', self.fname + ' already existst. Renaming ' +
-                    'log file...')
-
-            name_flog = self.name
-
-            # Rename the log file until does not exist
-            i = 1
-            while os.path.exists(name_flog + self.ext):
-                name_flog = ''
-                name_flog = self.name + ' (' + str(i) + ')'
-                i = i + 1
-
-            self.fname = name_flog + self.ext
-
-    def Write(self, pdf):
-        """
-        Write(self, pdf)
-            Writes the info of the pdf (metadata) to the log file.
-        Args:
-            - pdf: (pdf_metadata) Metadata of PDF.
-        """
-        f_log = open(self.fname, 'wa')
-        self.__Format_write(f_log, 'File', pdf.name)
-        self.__Format_write(f_log, 'Title', pdf.title)
-        self.__Format_write(f_log, 'Author', pdf.author)
-        self.__Format_write(f_log, 'Creator', pdf.creator)
-        self.__Format_write(f_log, 'Subject', pdf.subject)
-        self.__Format_write(f_log, 'Producer', pdf.producer)
-        self.__Format_write(f_log, 'Creation date', pdf.creation_date)
-        self.__Format_write(f_log, 'Modification date',
-                            pdf.modification_date)
-        self.__Format_write(f_log, 'Encrypted', pdf.encrypted)
-        self.__Format_write(f_log, 'Pages', pdf.num_pages)
-        self.__Format_write(f_log, 'Size', pdf.size)
-        f_log.write('\n')
-        f_log.close()
-
-    def __Format_write(self, f_log, field, info):
-        """
-        __Format_write(self, f_log, field_info)
-            Formats the information and writes it to the log file.
-        Args:
-            - f_log: (file) Log file.
-            - field: (string) Current information field.
-            - info: (string) Information.
-        """
-        if info:
-            if self.ext == '.txt':
-                field_info = field + ': ' + info + self.sep
-            else:
-                if field is 'Size':
-                    field_info = info
-                else:
-                    field_info = info + self.sep
-            f_log.write(field_info)
-        # If it's a empty field (None), write only the separator (',')
-        elif self.ext == '.csv':
-            f_log.write(self.sep)
-
-
-class message:
-    """
-    Class message
-        Stores and displays an information (or error) message.
-    """
-    msg = None
-    msg_type = None
-
-    def __init__(self, msg_type, msg):
-        """
-        __init__(self, msg_type, msg)
-            Stores and displays a message.
-        Args:
-            - msg_type: (string) Type of the message.
-                        - information
-                        - error
-            - msg: (string) Message.
-        """
-        self.msg_type = msg_type
-        self.msg = msg
-        self.Print_msg()
-
-    def Print_msg(self):
-        """
-        Print_msg(self)
-            Displays the message in a nice format.
-        """
-        if self.msg_type == 'error':
-            print tag.error + color.bold_red + 'Error: ' + color.end \
-                + self.msg
-        else:
-            print tag.info_msg + color.bold_green + 'INFO: ' \
-                + color.end + self.msg
-
-
-def Get_info(file_abs_path):
-    """
-    Get_info(file_abs_path)
+    get_info(file_abs_path)
         Defined to use the script as a module.Is more confortable enter
         only one parameter.
 
-    Args:
+    Arguments:
         - file_abs_path: (string) Absolute file path.
     """
     if os.path.isfile(file_abs_path):
         if file_abs_path.endswith('.pdf'):
-            this_pdf = pdf_metadata(file_abs_path)
+            this_pdf = Pdf_metadata(file_abs_path)
 
         else:
             message('error', file_abs_path + ' is not a PDF file.')
@@ -387,12 +212,12 @@ def Get_info(file_abs_path):
         message('error', file_abs_path + ' is not a file.')
 
 
-def __Scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
+def __scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
     """
-    __Scan_fulldir(dir_name, plain_log, csv_log)
+    __scan_fulldir(dir_name, plain_log, csv_log)
         Scans an entire directory looking for pdf files to display its
         metadata.
-    Args:
+    Arguments:
         - dir_name: (string) Target directory for scan.
         - plain_log: (None | string) Log file in plain text.
         - csv_log: (None | string) Log file in csv format.
@@ -408,7 +233,7 @@ def __Scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
                 analyzed_files = analyzed_files + 1
                 total_files = total_files + 1
 
-                this_pdf = pdf_metadata(file_path)
+                this_pdf = Pdf_metadata(file_path)
 
                 if f_log_txt:
                     f_log_txt.Write(this_pdf)
@@ -418,16 +243,16 @@ def __Scan_fulldir(path, plain_log, csv_log, analyzed_files, total_files):
     return analyzed_files, total_files
 
 
-def Scan_fulldir(path):
+def scan_fulldir(path):
     """
-    Scan_fulldir(path)
+    scan_fulldir(path)
         Defined to use the script as a module. Is more confortable enter
         only one parameter.
 
-    Args:
+    Arguments:
         - path: (string) Target directory for scan.
     """
-    __Scan_fulldir(path, None, None, 0, 0)
+    __scan_fulldir(path, None, None, 0, 0)
 
 
 if __name__ == '__main__':
@@ -443,27 +268,27 @@ if __name__ == '__main__':
                         help='Saves the output into a plain text file.')
     parser.add_argument('--csv', metavar='csv file', nargs='?',
                         help='Saves the output into a csv file.')
-    args = parser.parse_args()
+    Arguments = parser.parse_args()
 
-    f_log_txt = args.log
-    f_log_csv = args.csv
+    f_log_txt = Arguments.log
+    f_log_csv = Arguments.csv
     total_files = 0
     analyzed_files = 0
 
-    if args.log:
-        f_log_txt = log(args.log, 'txt')
+    if Arguments.log:
+        f_log_txt = log(Arguments.log, 'txt')
 
-    if args.csv:
-        f_log_csv = log(args.csv, 'csv')
+    if Arguments.csv:
+        f_log_csv = log(Arguments.csv, 'csv')
 
-    for target in args.targets:
+    for target in Arguments.targets:
         if os.path.isfile(target):
             if target.endswith('.pdf'):
                 # Inc Counters
                 analyzed_files = analyzed_files + 1
                 total_files = total_files + 1
 
-                this_pdf = pdf_metadata(target)
+                this_pdf = Pdf_metadata(target)
                 if f_log_txt:
                     f_log_txt.Write(this_pdf)
 
@@ -473,7 +298,7 @@ if __name__ == '__main__':
             else:
                 message('error', target + ' is not a PDF file.')
         elif os.path.isdir(target):
-            analyzed_files, total_files = __Scan_fulldir(target,
+            analyzed_files, total_files = __scan_fulldir(target,
                                                          f_log_txt,
                                                          f_log_csv,
                                                          analyzed_files,
