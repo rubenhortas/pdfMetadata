@@ -4,7 +4,7 @@
 """
 @author:    Rubén Hortas Astariz <http://rubenhortas.blogspot.com>
 @contact:   rubenhortas at gmail.com
-@github:    http://githug.com/rubenhortas/rhardening
+@github:    http://github.com/rubenhortas
 @license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 @status:    Developing
 @version:   alpha
@@ -46,16 +46,13 @@ def __scan_fulldir(path, analyzed_files, total_files):
         Scans an entire directory looking for pdf files to display its
         metadata.
     Arguments:
-        - dir_name: (string) Target directory for scan.
-        - plain_log: (None | string) Log file in plain text.
-        - csv_log: (None | string) Log file in csv format.
+        - path: (string) Target directory for scan.
         - analyzed_files: (integer) Files analyzed.
         - total_files: (integer) Total files analyzed.
     """
 
     try:
         for root, dirs, files in os.walk(path):
-            # for root, files in os.walk(path):
             for f in files:
                 if f.endswith('.pdf'):
                     file_path = os.path.join(root, f)

@@ -4,7 +4,7 @@
 """
 @author:    Rubén Hortas Astariz <http://rubenhortas.blogspot.com>
 @contact:   rubenhortas at gmail.com
-@github:    http://githug.com/rubenhortas/rhardening
+@github:    http://githug.com/rubenhortas
 @license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 @status:    Developing
 @version:   alpha
