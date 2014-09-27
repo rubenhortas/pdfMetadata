@@ -11,7 +11,7 @@
 @file:      Tags.py
 """
 
-from Colors import Color
+from presentation.Color import Color
 
 
 class Tag:

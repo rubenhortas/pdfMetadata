@@ -9,16 +9,16 @@
 @file:    Messages.py
 """
 
-import Tags
+from Tag import Tag
 
 
 def error_msg(msg):
-    print Tags.Tag.error + msg
+    print Tag.error + msg
 
 
 def warning_msg(msg):
-    print Tags.Tag.warning + msg
+    print Tag.warning + msg
 
 
 def info_msg(msg):
-    print Tags.Tag.info + msg
+    print Tag.info + msg
