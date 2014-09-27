@@ -35,6 +35,7 @@ class PDFMetadata:
     encrypted = None
     num_pages = None
     size = None
+    char_encoding = 'utf-8'  # Default encoding for text
 
     def __init__(self, file_path):
         """
@@ -90,25 +91,25 @@ class PDFMetadata:
 
         file_name = doc_info.get('/Title', None)
         if file_name:
-            self.title = file_name.encode('utf-8')
+            self.title = file_name.encode(self.char_encoding)
 
         author = doc_info.get('/Author', None)
         if author:
-            self.author = author.encode('utf-8')
+            self.author = author.encode(self.char_encoding)
 
         creator = doc_info.get('/Creator', None)
         if creator:
-            self.creator = creator.encode('utf-8')
+            self.creator = creator.encode(self.char_encoding)
 
         subject = doc_info.subject
         if subject and (subject != ''):
-            self.subject = subject.encode('utf-8')
+            self.subject = subject.encode(self.char_encoding)
 
         producer = doc_info.get('/Producer', None)
         if producer:
             if producer != '':
                 producer = producer.strip()
-                self.producer = producer.encode('utf-8')
+                self.producer = producer.encode(self.char_encoding)
 
         creation_date = doc_info.get('/CreationDate', None)
         if creation_date:
