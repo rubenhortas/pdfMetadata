@@ -2,18 +2,21 @@
 # _*_ coding:utf-8 _*
 
 """
-@author:     Rubén Hortas Astariz <http://rubenhortas.blogspot.com>
-@contact:    rubenhortas at gmail.com
-@github:     http://githug.com/rubenhortas/
-@license:    CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
-@file:       Log.py
+@author:    Rubén Hortas Astariz <http://rubenhortas.blogspot.com>
+@contact:   rubenhortas at gmail.com
+@github:    http://githug.com/rubenhortas/rhardening
+@license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
+@file:      Log.py
 """
+
+import os
+import presentation
 
 
 class Log:
     """
-    Class log
-        Stores the info and operations relatives to the log files.
+    Class data
+        Stores the info and operations relatives to the data files.
     """
     name = None  # name
     ext = None  # ext
@@ -53,23 +56,23 @@ class Log:
         """
         __check_if_exists(self)
             Checks if file exists.
-            It exists, rename the log file.
+            It exists, rename the data file.
         """
-        # Check if target log file is a dir
+        # Check if target data file is a dir
         # It happens in real world...
         if os.path.isdir(self.fname):
-            message('info', self.fname + ' is a dir.')
-            # Create another log file
+            presentation.Messages.info_msg(self.fname + ' is a dir.')
+            # Create another data file
             self.fname = 'pdfMetadataLog'
 
         # Check if log_file already exists
         if os.path.exists(self.fname):
-            message('info', self.fname + ' already existst. Renaming ' +
-                    'log file...')
+            presentation.Messages.info_msg(self.fname + ' already existst.' +
+                                           'Renaming data file...')
 
             name_flog = self.name
 
-            # Rename the log file until does not exist
+            # Rename the data file until does not exist
             i = 1
             while os.path.exists(name_flog + self.ext):
                 name_flog = ''
@@ -81,12 +84,14 @@ class Log:
     def write(self, pdf):
         """
         write(self, pdf)
-            Writes the info of the pdf (metadata) to the log file.
+            Writes the info of the pdf (metadata) to the data file.
         Args:
             - pdf: (pdf_metadata) Metadata of PDF.
         """
-        f_log = open(self.fname, 'wa')
+
+        f_log = open(self.fname, 'a+')
         self.__format_write(f_log, 'File', pdf.name)
+        self.__format_write(f_log, 'Path ', pdf.abs_path)
         self.__format_write(f_log, 'Title', pdf.title)
         self.__format_write(f_log, 'Author', pdf.author)
         self.__format_write(f_log, 'Creator', pdf.creator)
@@ -104,7 +109,7 @@ class Log:
     def __format_write(self, f_log, field, info):
         """
         __format_write(self, f_log, field_info)
-            Formats the information and writes it to the log file.
+            Formats the information and writes it to the data file.
         Args:
             - f_log: (file) Log file.
             - field: (string) Current information field.

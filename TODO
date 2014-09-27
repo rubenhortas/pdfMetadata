@@ -1,3 +1,0 @@
-- FIX problem with IndirectObjects in pdf_metadata.Parse_info
-		http://stackoverflow.com/questions/436474/pypdf-for-indirectobject-extraction
- - IMPROVE the file counter? If is error then not count it as analyzed.
