@@ -8,7 +8,7 @@
 @license:   CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
 @status:    Developing
 @version:   alpha
-@file:      Tags.py
+@file:      Tag.py
 """
 
 from presentation.Color import Color
