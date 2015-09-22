@@ -9,7 +9,7 @@
 @file:    Messages.py
 """
 
-from Tag import Tag
+from presentation.Tag import Tag
 
 
 def error_msg(msg):

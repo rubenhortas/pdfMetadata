@@ -15,9 +15,9 @@ import argparse
 import os
 import sys
 
-from data.Log import Log
-from data.PDFMetadata import PDFMetadata
-from presentation import Messages
+from crosscutting import Messages
+from crosscutting.Log import Log
+from domain.PDFMetadata import PDFMetadata
 
 
 def get_info(file_abs_path):

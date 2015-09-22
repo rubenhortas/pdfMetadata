@@ -9,11 +9,12 @@
 @file:    PDFMetadata.py
 """
 
-from PyPDF2 import PdfFileReader
 import os
-import data.Date as Date
 
-from presentation import(Messages, MessagesMetadata)
+import Date as Date
+from PyPDF2 import PdfFileReader
+from crosscutting import Messages
+from crosscutting import MessagesMetadata
 
 
 class PDFMetadata:
