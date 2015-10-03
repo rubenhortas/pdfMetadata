@@ -11,8 +11,11 @@
 
 import argparse
 import os
+import signal
 import sys
 
+from application.utils.PythonUtils import check_python_version
+from application.utils.PythonUtils import exit_signal_handler
 from crosscutting import Messages
 from crosscutting.Log import Log
 from domain.PDFMetadata import PDFMetadata
@@ -82,6 +85,13 @@ def scan_fulldir(path):
 
 
 if __name__ == '__main__':
+
+    python_required_version = 2
+
+    check_python_version(python_required_version)
+
+    signal.signal(signal.SIGINT, exit_signal_handler)
+
     parser = argparse.ArgumentParser(prog='pdfMetadata')
     parser = argparse.ArgumentParser(description='Scan pdf files \
                                      looking for their metadata.')
