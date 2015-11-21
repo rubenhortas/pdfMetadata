@@ -13,16 +13,16 @@ from presentation.tag import Tag
 
 
 def print_error(msg):
-    print Tag.error + msg
+    print('{0}{1}'.format(Tag.error, msg))
 
 
 def print_warning(msg):
-    print Tag.warning + msg
+    print('{0}{1}'.format(Tag.warning, msg))
 
 
 def print_info(msg):
-    print Tag.info + msg
+    print('{0}{1}'.format(Tag.info, msg))
 
 
 def print_exception(msg):
-    print Tag.exception + msg
+    print('{0}{1}'.format(Tag.exception, msg))
