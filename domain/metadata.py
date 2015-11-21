@@ -68,11 +68,6 @@ class Metadata:
             - document: (pdfFileReader) PDF file.
         """
 
-        print '-'
-        print document.getIsEncrypted()
-        print document.getIsEncrypted()
-        print '-'
-
         if document.getIsEncrypted() is True:
             self.encrypted = 'Yes'
         else:
