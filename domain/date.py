@@ -6,7 +6,7 @@
 @contact: rubenhortas at gmail.com
 @github:  http://github.com/rubenhortas
 @license: CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
-@file:    Date.py
+@file:    date.py
 """
 
 from datetime import datetime
@@ -22,8 +22,10 @@ def format_date(input_date):
      """
 
     format_1 = re.compile("^D:[0-9]{14}")
-    format_3 = re.compile("[0-9]{1,2}/[0-9]{1,2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}")
-    format_4 = re.compile("^[a-zA-Z]{3} [a-zA-Z]{3} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}")
+    format_3 = re.compile(
+        "[0-9]{1,2}/[0-9]{1,2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}")
+    format_4 = re.compile(
+        "^[a-zA-Z]{3} [a-zA-Z]{3} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}")
 
     fd = input_date
 
