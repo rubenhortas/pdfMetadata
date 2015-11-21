@@ -11,7 +11,7 @@
 """
 
 import os
-from crosscutting import Messages
+from crosscutting import condition_messages
 from domain.metadata import Metadata
 
 
@@ -33,10 +33,11 @@ def get_file_info(file_abs_path, analyzed_files):
             metadata = Metadata(file_abs_path)
             metadata.print_info()
         else:
-            Messages.error_msg(file_abs_path +
-                               ' is not a PDF file.')
+            condition_messages.print_error(
+                '{0} is not a PDF file.'.format(file_abs_path))
     else:
-        Messages.error_msg(file_abs_path + 'is not a file.')
+        condition_messages.print_error(
+            '{0} is not a file.'.format(file_abs_path))
 
     return analyzed_files
 
