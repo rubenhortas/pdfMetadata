@@ -149,8 +149,12 @@ class Metadata:
                                             self.modification_date)
 
         if self.encrypted:
-            application_messages.print_document_info(
-                'Encrypted', self.encrypted)
+            if self.encrypted == 'Yes':
+                application_messages.print_highlighted(
+                    'Encrypted', self.encrypted)
+            else:
+                application_messages.print_document_info(
+                    'Encrypted', self.encrypted)
 
         if self.num_pages:
             application_messages.print_document_info('Pages', self.num_pages)
