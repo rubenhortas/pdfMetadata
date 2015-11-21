@@ -52,25 +52,22 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
         - total_files: (integer) Total files analyzed.
     """
 
-    try:
-        for root, dirs, files in os.walk(path):
-            for f in files:
+    for root, dirs, files in os.walk(path):
+        for f in files:
 
-                total_files = total_files + 1
+            total_files = total_files + 1
 
-                if f.endswith('.pdf'):
-                    file_path = os.path.join(root, f)
+            if f.endswith('.pdf'):
+                file_path = os.path.join(root, f)
 
-                    analyzed_files = analyzed_files + 1
+                analyzed_files = analyzed_files + 1
 
-                    metadata = Metadata(file_path)
-                    metadata.print_info()
+                metadata = Metadata(file_path)
+                metadata.print_info()
 
-                    if f_log_txt:
-                        f_log_txt.write(metadata)
-                    if f_log_csv:
-                        f_log_csv.write(metadata)
+                if f_log_txt:
+                    f_log_txt.write(metadata)
+                if f_log_csv:
+                    f_log_csv.write(metadata)
 
-        return analyzed_files, total_files
-    except KeyboardInterrupt:
-        sys.exit(0)
+    return analyzed_files, total_files
