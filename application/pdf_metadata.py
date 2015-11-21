@@ -10,8 +10,9 @@
 @interpreter: python3
 """
 
+import os
 from crosscutting import Messages
-from domain.Metadata import Metadata
+from domain.metadata import Metadata
 
 
 def get_file_info(file_abs_path):

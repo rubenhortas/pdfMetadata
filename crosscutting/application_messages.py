@@ -13,18 +13,18 @@ from presentation.Color import Color
 from presentation.Tag import Tag
 
 
-def file_name(file_name):
-    print Tag.info + Color.bold_green + file_name + Color.end
+def print_file_name(print_file_name):
+    print Tag.info + Color.bold_green + print_file_name + Color.end
 
 
-def info(field_name, field_value):
+def print_document_info(field_name, field_value):
     print Tag.info + field_name + ':\t\t' + field_value
 
 
-def info_date(field_name, field_value):
+def print_date(field_name, field_value):
     print Tag.info + field_name + ':\t' + field_value
 
 
-def highlighted(field_name, field_value):
+def highlight(field_name, field_value):
     print Tag.info + Color.bold_green + field_name + ':\t\t' + \
         Color.bold_red + field_value + Color.end

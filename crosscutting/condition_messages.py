@@ -12,17 +12,17 @@
 from presentation.Tag import Tag
 
 
-def error_msg(msg):
+def print_error(msg):
     print Tag.error + msg
 
 
-def warning_msg(msg):
+def print_warning(msg):
     print Tag.warning + msg
 
 
-def info_msg(msg):
+def print_info(msg):
     print Tag.info + msg
 
 
-def exception_msg(msg):
+def print_exception(msg):
     print Tag.exception + msg

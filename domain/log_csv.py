@@ -13,7 +13,7 @@
 from log import Log
 
 
-class LogCSV(Log):
+class LogCsv(Log):
 
     def __init__(self):
         self.extension = '.csv'

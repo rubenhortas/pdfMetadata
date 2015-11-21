@@ -120,9 +120,9 @@ class Metadata:
         if modification_date:
             self.modification_date = Date.format_date(modification_date)
 
-    def __print_info(self):
+    def print_info(self):
         """
-        __print_info(self)
+        print_info(self)
             Displays the metadata in a nice format.
         """
 

@@ -14,14 +14,15 @@ import os
 import signal
 import sys
 
-from application.PDFMetadata import get_file_info
-from application.PDFMetadata import scan_dir
-from application.utils.PythonUtils import exit_signal_handler
-from application.utils.PythonUtils import get_interpreter_version
-from crosscutting import Constants
-from crosscutting import Messages
-from crosscutting.Log import Log
-from domain.Metadata import Metadata
+from application.pdf_metadata import get_file_info
+from application.pdf_metadata import scan_dir
+from application.utils.python_utils import exit_signal_handler
+from application.utils.python_utils import get_interpreter_version
+from crosscutting import condition_messages
+from crosscutting import constants
+from domain.log_csv import LogCsv
+from domain.log_txt import LogTxt
+from domain.metadata import Metadata
 
 
 if __name__ == '__main__':
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
     interpreterVersion = get_interpreter_version()
 
-    if(interpreterVersion == Constants.REQUIRED_PYTHON_VERSION):
+    if(interpreterVersion == constants.PYTHON_REQUIRED_VERSION):
 
         parser = argparse.ArgumentParser(prog='pdfMetadata')
         parser = argparse.ArgumentParser(description='Scan pdf files \
@@ -51,10 +52,10 @@ if __name__ == '__main__':
         analyzed_files = 0
 
         if args.log:
-            f_log_txt = Log(args.log, 'txt')
+            f_log_txt = LogTxt(args.log, 'txt')
 
         if args.csv:
-            f_log_csv = Log(args.csv, 'csv')
+            f_log_csv = LogCsv(args.csv, 'csv')
 
         for argument in args.arguments:
             if os.path.isfile(argument):
@@ -68,17 +69,17 @@ if __name__ == '__main__':
                                                        analyzed_files,
                                                        total_files)
             else:
-                Messages.error_msg(argument + ' is not a valid PDF' +
-                                   ' file or a existing directory.')
+                condition_messages.print_error(argument + ' is not a valid PDF' +
+                                               ' file or a existing directory.')
 
         if f_log_txt:
-            Messages.info_msg('Saved to: ' + f_log_txt.fname)
+            contidion_messages.print_info('Saved to: ' + f_log_txt.fname)
         if f_log_csv:
-            Messages.info_msg('Saved to: ' + f_log_csv.fname)
+            condition_messages.print_info('Saved to: ' + f_log_csv.fname)
 
-        Messages.info_msg('Analyzed files: ' + analyzed_files
-                          + '/' + total_files)
+        condition_messages.print_info('Analyzed files: ' + str(analyzed_files)
+                                      + '/' + str(total_files))
     else:
-        Messages.error_msg(
+        condition_messages.print_error(
             'Requires Python {0}'.format(python_required_version))
         exit(0)
