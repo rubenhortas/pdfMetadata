@@ -54,7 +54,6 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
 
     for root, dirs, files in os.walk(path):
         for f in files:
-
             total_files = total_files + 1
 
             if f.endswith('.pdf'):
