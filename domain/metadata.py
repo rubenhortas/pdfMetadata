@@ -156,5 +156,5 @@ class Metadata:
 
         if self.size:
             application_messages.print_document_info(
-                'Size', self.size + ' bytes')
+                'Size', '{0} bytes'.format(self.size))
         print
