@@ -22,3 +22,7 @@ def warning_msg(msg):
 
 def info_msg(msg):
     print Tag.info + msg
+
+
+def exception_msg(msg):
+    print Tag.exception + msg

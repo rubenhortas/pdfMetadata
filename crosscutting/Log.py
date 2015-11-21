@@ -10,19 +10,19 @@
 """
 
 import os
-
 import presentation
 
 
+# TODO: Do TXTLog and CSVLog as Log's inheritance and fix the __init__
 class Log:
     """
-    Class data
+    Class Log
         Stores the info and operations relatives to the data files.
     """
-    name = None  # name
-    ext = None  # ext
-    sep = None  # field separator
-    fname = None  # name.ext
+    name = None
+    ext = None
+    field_separator = None
+    file_name = None  # With extension
 
     def __init__(self, name, ext):
         """
@@ -33,21 +33,21 @@ class Log:
         self.ext = '.' + ext
         if name.endswith(ext):
             self.name = name.replace(self.ext, '').strip()
-            self.fname = name
+            self.file_name = name
         else:
             self.name = name.strip()
-            self.fname = self.name + self.ext
+            self.file_name = self.name + self.ext
 
         if ext == 'txt':
-            self.sep = '\n'
+            self.field_separator = '\n'
         else:
-            self.sep = ','
+            self.field_separator = ','
 
         self.__check_if_exists()
 
         # If csv, then write file header
         if self.ext is '.csv':
-            f_log = open(self.fname, 'w')
+            f_log = open(self.file_name, 'w')
             f_log.__write('#File name, Title, Author, Creator, Subject,'
                           ' Producer, Creation date, Modification date,'
                           ' Encrypted, Pages, Size\n')
@@ -57,18 +57,22 @@ class Log:
         """
         __check_if_exists(self)
             Checks if file exists.
-            It exists, rename the data file.
+            If exists rename the data file.
         """
+
+        # FIXME: Refactor this function. Really needed.
+        # Dive into check_if_exists and rename
+
         # Check if target data file is a dir
-        # It happens in real world...
-        if os.path.isdir(self.fname):
-            presentation.Messages.info_msg(self.fname + ' is a dir.')
+        # It happens in the real world...
+        if os.path.isdir(self.file_name):
+            presentation.Messages.info_msg(self.file_name + ' is a dir.')
             # Create another data file
-            self.fname = 'pdfMetadataLog'
+            self.file_name = 'pdfMetadataLog'
 
         # Check if log_file already exists
-        if os.path.exists(self.fname):
-            presentation.Messages.info_msg(self.fname + ' already existst.' +
+        if os.path.exists(self.file_name):
+            presentation.Messages.info_msg(self.file_name + ' already existst.' +
                                            'Renaming data file...')
 
             name_flog = self.name
@@ -80,30 +84,30 @@ class Log:
                 name_flog = self.name + ' (' + str(i) + ')'
                 i = i + 1
 
-            self.fname = name_flog + self.ext
+            self.file_name = name_flog + self.ext
 
-    def write(self, pdf):
+    def write(self, metadata):
         """
-        write(self, pdf)
-            Writes the info of the pdf (metadata) to the data file.
+        write(self, metadata)
+            Writes the metadata to the data file.
         Args:
-            - pdf: (pdf_metadata) Metadata of PDF.
+            - metadata: Metadata of PDF file.
         """
 
-        f_log = open(self.fname, 'a+')
-        self.__format_write(f_log, 'File', pdf.name)
-        self.__format_write(f_log, 'Path ', pdf.abs_path)
-        self.__format_write(f_log, 'Title', pdf.title)
-        self.__format_write(f_log, 'Author', pdf.author)
-        self.__format_write(f_log, 'Creator', pdf.creator)
-        self.__format_write(f_log, 'Subject', pdf.subject)
-        self.__format_write(f_log, 'Producer', pdf.producer)
-        self.__format_write(f_log, 'Creation date', pdf.creation_date)
+        f_log = open(self.file_name, 'a+')
+        self.__format_write(f_log, 'File', metadata.name)
+        self.__format_write(f_log, 'Path ', metadata.abs_path)
+        self.__format_write(f_log, 'Title', metadata.title)
+        self.__format_write(f_log, 'Author', metadata.author)
+        self.__format_write(f_log, 'Creator', metadata.creator)
+        self.__format_write(f_log, 'Subject', metadata.subject)
+        self.__format_write(f_log, 'Producer', metadata.producer)
+        self.__format_write(f_log, 'Creation date', metadata.creation_date)
         self.__format_write(f_log, 'Modification date',
-                            pdf.modification_date)
-        self.__format_write(f_log, 'Encrypted', pdf.encrypted)
-        self.__format_write(f_log, 'Pages', pdf.num_pages)
-        self.__format_write(f_log, 'Size', pdf.size)
+                            metadata.modification_date)
+        self.__format_write(f_log, 'Encrypted', metadata.encrypted)
+        self.__format_write(f_log, 'Pages', metadata.num_pages)
+        self.__format_write(f_log, 'Size', metadata.size)
         f_log.write('\n')
         f_log.close()
 
@@ -116,15 +120,16 @@ class Log:
             - field: (string) Current information field.
             - info: (string) Information.
         """
+        # FIXTHIS: With inheritance
         if info:
             if self.ext == '.txt':
-                field_info = field + ': ' + info + self.sep
+                field_info = field + ': ' + info + self.field_separator
             else:
                 if field is 'Size':
                     field_info = info
                 else:
-                    field_info = info + self.sep
+                    field_info = info + self.field_separator
             f_log.write(field_info)
         # If it's a empty field (None), write only the separator (',')
         elif self.ext == '.csv':
-            f_log.write(self.sep)
+            f_log.write(self.field_separator)

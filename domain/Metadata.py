@@ -6,22 +6,21 @@
 @contact: rubenhortas at gmail.com
 @github:  http://github.com/rubenhortas
 @license: CC BY-NC-SA 3.0 <http://creativecommons.org/licenses/by-nc-sa/3.0/>
-@file:    PDFMetadata.py
+@file:    Metadata.py
 """
 
+from PyPDF2 import PdfFileReader
 import os
 
 import Date as Date
-from PyPDF2 import PdfFileReader
 from crosscutting import Messages
 from crosscutting import MessagesMetadata
 
 
-class PDFMetadata:
+class Metadata:
     """
-    Class PDFMetadata
-        Stores the data and operations relatives to the pdf
-        (metadata, pages, size...).
+    Class Metadata
+        Dta and operations relatives to the pdf file.
     """
 
     abs_path = None
@@ -36,93 +35,94 @@ class PDFMetadata:
     encrypted = None
     num_pages = None
     size = None
-    char_encoding = 'utf-8'  # Default encoding for text
+    char_encoding = 'UTF-8'
 
-    def __init__(self, file_path):
+    def __init__(self, file_abs_path):
         """
-        __init__(self, file_path):
-            - Try to open the pdf.
-            - Get the metadata.
-            - Print the metadata.
+        __init__(self, file_abs_path):
+
         Arguments:
-            - file_path: (string) Absolute file path.
+            - file_abs_path: (string) Absolute file path.
         """
 
-        self.abs_path = file_path
+        self.abs_path = file_abs_path
         self.name = os.path.basename(self.abs_path)
 
         try:
-            pdf_file = PdfFileReader(file(self.abs_path, 'rb'))
-            self.encrypted = self.__is_encrypted(pdf_file)
-            doc_info = pdf_file.getDocumentInfo()
-            if doc_info:
-                self.__parse_info(doc_info)
-                self.__print_metadata()
+            document = PdfFileReader(file(self.abs_path, 'rb'))
 
-        except Exception, e:
-            if 'encode' not in str(e):
-                Messages.error_msg(str(e))
+            self.encrypted = self.__is_encrypted(document)
+
+            document_info = document.getDocumentInfo()
+            if document_info:
+                self.__parse_document_info(document_info)
+
+        except Exception, ex:
+            if 'encode' not in str(ex):
+                Messages.error_msg(ex)
                 print
+            else:
+                Messages.exception(ex)
 
-    def __is_encrypted(self, pdf_file):
+    def __is_encrypted(self, document):
         """
-        __is_encrypted(self, pdf_file)
-            Return if pdf_file is encrypted or not.
+        __is_encrypted(self, document)
+            Return if document is encrypted or not.
         Arguments:
-            - pdf_file: (pdfFileReader) PDF file.
+            - document: (pdfFileReader) PDF file.
         """
 
-        if pdf_file.getIsEncrypted():
+        if document.getIsEncrypted():
             try:
-                pdf_file.decrypt('')
+                document.decrypt('')
             except Exception:
                 pass
             finally:
-                return 'Yes'
+                return True
         else:
-            return 'No'
+            return False
 
-    def __parse_info(self, doc_info):
+    def __parse_document_info(self, document_info):
         """
-        __parse_info(self, doc_info)
-            Parses the metadata.
+        __parse_document_info(self, document_info)
+            Parses the document info (metadata).
         Arguments:
-            - doc_info: (pdfFileReader.getDocumentInfo()) Metadata.
+            - document_info: (pdfFileReader.getDocumentInfo()) Metadata.
         """
 
-        file_name = doc_info.get('/Title', None)
+        file_name = document_info.get('/Title', None)
         if file_name:
             self.title = file_name.encode(self.char_encoding)
 
-        author = doc_info.get('/Author', None)
+        author = document_info.get('/Author', None)
         if author:
             self.author = author.encode(self.char_encoding)
 
-        creator = doc_info.get('/Creator', None)
+        creator = document_info.get('/Creator', None)
         if creator:
             self.creator = creator.encode(self.char_encoding)
 
-        subject = doc_info.subject
+        subject = document_info.subject
         if subject and (subject != ''):
             self.subject = subject.encode(self.char_encoding)
 
-        producer = doc_info.get('/Producer', None)
+        producer = document_info.get('/Producer', None)
         if producer:
             if producer != '':
                 producer = producer.strip()
                 self.producer = producer.encode(self.char_encoding)
 
-        creation_date = doc_info.get('/CreationDate', None)
+        creation_date = document_info.get('/CreationDate', None)
         if creation_date:
             self.creation_date = Date.format_date(creation_date)
 
-        modification_date = doc_info.get('/ModDate', None)
+        modification_date = document_info.get('/ModDate', None)
         if modification_date:
             self.modification_date = Date.format_date(modification_date)
 
-    def __print_metadata(self):
+    def __print_info(self):
         """
-        __print_metadata(self)
+        __print_info(self)
             Displays the metadata in a nice format.
         """
 
@@ -151,7 +151,10 @@ class PDFMetadata:
             MessagesMetadata.info_date('Modification date',
                                        self.modification_date)
 
-        MessagesMetadata.info('Encrypted', self.encrypted)
+        if self.encrypted:
+            MessagesMetadata.info('Encrypted', 'Yes')
+        else:
+            MessagesMetadata.info('Encrypted', 'No')
 
         if self.num_pages:
             MessagesMetadata.info('Pages', self.num_pages)
