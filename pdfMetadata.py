@@ -83,5 +83,5 @@ if __name__ == '__main__':
                                       + '/' + str(total_files))
     else:
         condition_messages.print_error(
-            'Requires Python {0}'.format(python_required_version))
+            'Requires Python {0}'.format(PYTHON_REQUIRED_VERSION))
         exit(0)
