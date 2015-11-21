@@ -82,4 +82,4 @@ class LogCsv(Log):
             f_log.write('\n')
             f_log.close()
         except Exception as ex:
-            condition_messages.print_exception(ex)
+            condition_messages.print_exception(ex.message)
