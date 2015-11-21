@@ -83,8 +83,7 @@ if __name__ == '__main__':
                 'Saved to: {0}'.format(log_csv.file_name))
 
         condition_messages.print_info(
-            'Analyzed files: {0}/{1}'.format(str(analyzed_files),
-                                             str(total_files)))
+            'Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
     else:
         condition_messages.print_error(
             'Requires Python {0}'.format(PYTHON_REQUIRED_VERSION))
