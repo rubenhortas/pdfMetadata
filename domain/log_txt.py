@@ -15,11 +15,11 @@ from log import Log
 
 class LogTxt(Log):
 
-    def __init__(self):
+    def __init__(self, name):
         self.extension = '.txt'
         self.field_separator = '\n'
-        self.name = name.replace(self.ext, '').strip()
-        self.file_name = name
+
+        self._Log__set_file_name(name)
 
         if(self._Log__exists()):
             self._Log__rename()
@@ -27,27 +27,28 @@ class LogTxt(Log):
     def write(self, metadata):
         f_log = open(self.file_name, 'a+')
         if metadata.name:
-            f_log.write('File: ', metadata.name)
+            f_log.write('File: {0}'.format(metadata.name))
         if metadata.abs_path:
-            f_log.write('Path: ', metadata.abs_path)
+            f_log.write('Path: {0}'.format(metadata.abs_path))
         if metadata.title:
-            f_log.write('Title: ', metadata.title)
+            f_log.write('Title: {0}'.format(metadata.title))
         if metadata.author:
-            f_log.write('Author: ', metadata.author)
+            f_log.write('Author: {0}'.format(metadata.author))
         if metadata.creator:
-            f_log.write('Creator: ', metadata.creator)
+            f_log.write('Creator: {0}'.format(metadata.creator))
         if metadata.subject:
-            f_log.write('Subject: ', metadata.subject)
+            f_log.write('Subject: {0}'.format(metadata.subject))
         if metadata.producer:
-            f_log.write('Producer: ', metadata.producer)
+            f_log.write('Producer: {0}'.format(metadata.producer))
         if metadata.creation_date:
-            f_log.write('Creation date: ', metadata.creation_date)
+            f_log.write('Creation date: {0}'.format(metadata.creation_date))
         if metadata.modification_date:
-            f_log.write('Modification date: ', metadata.modification_date)
-        f_log.write('Encrypted: ', metadata.encrypted)
+            f_log.write(
+                'Modification date: {0}'.format(metadata.modification_date))
+        f_log.write('Encrypted: {0}'.format(metadata.encrypted))
         if metadata.num_pages:
-            f_log.write('Pages: ', metadata.num_pages)
+            f_log.write('Pages: {0}'.format(metadata.num_pages))
         if metadata.size:
-            f_log.write('Size: ', metadata.size)
+            f_log.write('Size: {0}'.format(metadata.size))
         f_log.write('\n')
         f_log.close()

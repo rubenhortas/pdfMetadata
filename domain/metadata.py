@@ -50,7 +50,7 @@ class Metadata:
         try:
             document = PdfFileReader(file(self.abs_path, 'rb'))
 
-            self.encrypted = self.__is_encrypted(document)
+            self.__get_encrypted_status(document)
 
             document_info = document.getDocumentInfo()
             if document_info:
@@ -60,9 +60,9 @@ class Metadata:
             if 'encode' not in str(ex):
                 condition_messages.print_exception(ex)
 
-    def __is_encrypted(self, document):
+    def __get_encrypted_status(self, document):
         """
-        __is_encrypted(self, document)
+        __get_encrypted_status(self, document)
             Return if document is encrypted or not.
         Arguments:
             - document: (pdfFileReader) PDF file.
@@ -74,9 +74,9 @@ class Metadata:
             except Exception:
                 pass
             finally:
-                return True
+                self.encrypted = 'Yes'
         else:
-            return False
+            self.encrypted = 'False'
 
     def __parse_document_info(self, document_info):
         """

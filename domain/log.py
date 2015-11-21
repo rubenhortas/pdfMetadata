@@ -10,7 +10,7 @@
 """
 
 import os
-import presentation
+from crosscutting import condition_messages
 
 
 # TODO: Do TXTLog and CSVLog as Log's inheritance and fix the __init__
@@ -24,6 +24,14 @@ class Log:
     field_separator = None
     file_name = None  # Name with extension
 
+    def __set_file_name(self, name):
+        if name.endswith(self.extension):
+            self.name = name.replace(self.extension, '').strip()
+            self.file_name = name
+        else:
+            self.name = name.strip()
+            self.fname = self.name + self.extension
+
     def __exists(self):
         """
             __exists(self)
@@ -35,13 +43,13 @@ class Log:
         # Check if target data file is a directory
         # It happens in the real world...
         if os.path.isdir(self.file_name):
-            presentation.Messages.info_msg(self.file_name + ' is a dir.')
+            condition_messages.print_info(self.file_name + ' is a dir.')
+
             # Create another data file
             self.file_name = 'pdfMetadataLog'
 
         if os.path.exists(self.file_name):
-            presentation.Messages.info_msg(
-                self.file_name + ' already existst.')
+            condition_messages.print_info(self.file_name + ' already existst.')
             file_exists = True
 
         return file_exists
@@ -55,9 +63,9 @@ class Log:
         file_name = self.name
         i = 1
 
-        while os.path.exists(file_name + self.ext):
+        while os.path.exists(file_name + self.extension):
             file_name = ''
             file_name = self.name + ' (' + str(i) + ')'
             i = i + 1
 
-            self.file_name = file_name + self.ext
+            self.file_name = file_name + self.extension

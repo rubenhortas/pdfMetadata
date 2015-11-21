@@ -55,10 +55,10 @@ if __name__ == '__main__':
         analyzed_files = 0
 
         if args.log:
-            f_log_txt = LogTxt(args.log, 'txt')
+            f_log_txt = LogTxt(args.log)
 
         if args.csv:
-            f_log_csv = LogCsv(args.csv, 'csv')
+            f_log_csv = LogCsv(args.csv)
 
         for argument in args.arguments:
             if os.path.isfile(argument):
@@ -75,9 +75,9 @@ if __name__ == '__main__':
                                                ' file or a existing directory.')
 
         if f_log_txt:
-            contidion_messages.print_info('Saved to: ' + f_log_txt.fname)
+            condition_messages.print_info('Saved to: ' + f_log_txt.file_name)
         if f_log_csv:
-            condition_messages.print_info('Saved to: ' + f_log_csv.fname)
+            condition_messages.print_info('Saved to: ' + f_log_csv.file_name)
 
         condition_messages.print_info('Analyzed files: ' + str(analyzed_files)
                                       + '/' + str(total_files))

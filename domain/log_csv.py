@@ -15,11 +15,11 @@ from log import Log
 
 class LogCsv(Log):
 
-    def __init__(self):
+    def __init__(self, name):
         self.extension = '.csv'
         self.field_separator = ','
-        self.name = name.strip()
-        self.file_name = self.name + self.ext
+
+        self._Log__set_file_name(name)
 
         if(self._Log__exists()):
             self._Log__rename()
@@ -32,12 +32,12 @@ class LogCsv(Log):
             Writes CSV file header.
         """
         f_log = open(self.file_name, 'w')
-        f_log.__write('#File name, Title, Author, Creator, Subject,'
-                      ' Producer, Creation date, Modification date,'
-                      ' Encrypted, Pages, Size\n')
+        f_log.write('#File name, Title, Author, Creator, Subject,'
+                    ' Producer, Creation date, Modification date,'
+                    ' Encrypted, Pages, Size\n')
         f_log.close()
 
-    def write(self):
+    def write(self, metadata):
         f_log = open(self.file_name, 'a+')
         if metadata.name:
             f_log.write(metadata.name)
