@@ -42,13 +42,15 @@ class Log:
         # Check if target data file is a directory
         # It happens in the real world...
         if os.path.isdir(self.file_name):
-            condition_messages.print_info(self.file_name + ' is a dir.')
+            condition_messages.print_info(
+                '{0} is a dir.'.format(self.file_name))
 
             # Create another data file
             self.file_name = 'pdfMetadataLog'
 
         if os.path.exists(self.file_name):
-            condition_messages.print_info(self.file_name + ' already existst.')
+            condition_messages.print_info(
+                '{0} already exists.'.format(self.file_name))
             file_exists = True
 
         return file_exists
@@ -59,12 +61,9 @@ class Log:
             Renames the file until does not exist.
         """
 
-        file_name = self.name
+        file_name = self.name + self.extension
         i = 1
 
-        while os.path.exists(file_name + self.extension):
-            file_name = ''
-            file_name = self.name + ' (' + str(i) + ')'
+        while os.path.exists(file_name):
+            file_name = '{0} ({1}){2}'.format(self.name, i, self.extension)
             i = i + 1
-
-            self.file_name = file_name + self.extension
