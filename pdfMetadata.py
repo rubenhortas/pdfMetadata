@@ -71,16 +71,18 @@ if __name__ == '__main__':
                                                        log_txt,
                                                        log_csv)
             else:
-                condition_messages.print_error(argument + ' is not a valid PDF' +
-                                               ' file or a existing directory.')
+                condition_messages.print_error(
+                    '{0} is not a valid PDF file or a existing directory.', argument)
 
         if log_txt:
-            condition_messages.print_info('Saved to: ' + log_txt.file_name)
+            condition_messages.print_info(
+                'Saved to: {0}'.format(log_txt.file_name))
         if log_csv:
-            condition_messages.print_info('Saved to: ' + log_csv.file_name)
+            condition_messages.print_info(
+                'Saved to: {0}'.format(log_csv.file_name))
 
-        condition_messages.print_info('Analyzed files: ' + str(analyzed_files)
-                                      + '/' + str(total_files))
+        condition_messages.print_info(
+            'Analyzed files: {0}/{1}'.format(str(analyzed_files), str(total_files)))
     else:
         condition_messages.print_error(
             'Requires Python {0}'.format(PYTHON_REQUIRED_VERSION))
