@@ -12,7 +12,7 @@
 import signal
 import signal
 from sys import version_info
-from crosscutting import Messages
+from crosscutting import condition_messages
 
 
 def get_interpreter_version():
@@ -31,5 +31,5 @@ def exit_signal_handler(signal, frame):
     """
 
     print
-    Messages.info_msg("Stopped")
+    condition_messages.print_info("Stopped")
     exit(0)
