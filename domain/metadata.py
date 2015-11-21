@@ -68,15 +68,15 @@ class Metadata:
             - document: (pdfFileReader) PDF file.
         """
 
-        if document.getIsEncrypted():
-            try:
-                document.decrypt('')
-            except Exception:
-                pass
-            finally:
-                self.encrypted = 'Yes'
+        print '-'
+        print document.getIsEncrypted()
+        print document.getIsEncrypted()
+        print '-'
+
+        if document.getIsEncrypted() is True:
+            self.encrypted = 'Yes'
         else:
-            self.encrypted = 'False'
+            self.encrypted = 'No'
 
     def __parse_document_info(self, document_info):
         """
@@ -149,9 +149,8 @@ class Metadata:
                                             self.modification_date)
 
         if self.encrypted:
-            application_messages.print_document_info('Encrypted', 'Yes')
-        else:
-            application_messages.print_document_info('Encrypted', 'No')
+            application_messages.print_document_info(
+                'Encrypted', self.encrypted)
 
         if self.num_pages:
             application_messages.print_document_info('Pages', self.num_pages)
