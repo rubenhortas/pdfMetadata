@@ -25,6 +25,6 @@ def print_date(field_name, field_value):
     print Tag.info + field_name + ':\t' + field_value
 
 
-def highlight(field_name, field_value):
+def print_highlighted(field_name, field_value):
     print Tag.info + Color.bold_green + field_name + ':\t\t' + \
         Color.bold_red + field_value + Color.end

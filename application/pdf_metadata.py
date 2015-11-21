@@ -35,7 +35,7 @@ def get_file_info(file_abs_path):
         Messages.error_msg(file_abs_path + 'is not a file.')
 
 
-def scan_dir(path, analyzed_files, total_files):
+def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
     """
     __scan_dir(dir_name, plain_log, csv_log)
         Scans an entire directory looking for pdf files to display its

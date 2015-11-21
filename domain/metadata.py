@@ -11,10 +11,9 @@
 
 from PyPDF2 import PdfFileReader
 import os
-
 import Date as Date
-from crosscutting import Messages
-from crosscutting import MessagesMetadata
+from crosscutting import application_messages
+from crosscutting import condition_messages
 
 
 class Metadata:
@@ -59,10 +58,7 @@ class Metadata:
 
         except Exception, ex:
             if 'encode' not in str(ex):
-                Messages.error_msg(ex)
-                print
-            else:
-                Messages.exception(ex)
+                condition_messages.print_exception(ex)
 
     def __is_encrypted(self, document):
         """
@@ -126,40 +122,41 @@ class Metadata:
             Displays the metadata in a nice format.
         """
 
-        MessagesMetadata.file_name(self.name)
-        MessagesMetadata.info('Path', self.abs_path)
+        application_messages.print_file_name(self.name)
+        application_messages.print_document_info('Path', self.abs_path)
 
         if self.title:
-            MessagesMetadata.info('Title', self.title)
+            application_messages.print_document_info('Title', self.title)
 
         if self.author:
-            MessagesMetadata.highlighted('Author', self.author)
+            application_messages.print_highlighted('Author', self.author)
 
         if self.creator:
-            MessagesMetadata.info('Creator', self.creator)
+            application_messages.print_document_info('Creator', self.creator)
 
         if self.subject:
-            MessagesMetadata.info('Subject', self.subject)
+            application_messages.print_document_info('Subject', self.subject)
 
         if self.producer:
-            MessagesMetadata.info('Producer', self.producer)
+            application_messages.print_document_info('Producer', self.producer)
 
         if self.creation_date:
-            MessagesMetadata.info_date('Creation date', self.creation_date)
+            application_messages.print_date(
+                'Creation date', self.creation_date)
 
         if self.modification_date:
-            MessagesMetadata.info_date('Modification date',
-                                       self.modification_date)
+            application_messages.print_date('Modification date',
+                                            self.modification_date)
 
         if self.encrypted:
-            MessagesMetadata.info('Encrypted', 'Yes')
+            application_messages.print_document_info('Encrypted', 'Yes')
         else:
-            MessagesMetadata.info('Encrypted', 'No')
+            application_messages.print_document_info('Encrypted', 'No')
 
         if self.num_pages:
-            MessagesMetadata.info('Pages', self.num_pages)
+            application_messages.print_document_info('Pages', self.num_pages)
 
         if self.size:
-            MessagesMetadata.info('Size', self.size + ' bytes')
-
+            application_messages.print_document_info(
+                'Size', self.size + ' bytes')
         print

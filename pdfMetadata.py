@@ -30,6 +30,8 @@ if __name__ == '__main__':
 
     signal.signal(signal.SIGINT, exit_signal_handler)
 
+    clear_screen()
+
     interpreterVersion = get_interpreter_version()
 
     if(interpreterVersion == constants.PYTHON_REQUIRED_VERSION):
@@ -68,7 +70,9 @@ if __name__ == '__main__':
                 # I don't think that the counters works as expected
                 analyzed_files, total_files = scan_dir(argument,
                                                        analyzed_files,
-                                                       total_files)
+                                                       total_files,
+                                                       f_log_txt,
+                                                       f_log_csv)
             else:
                 condition_messages.print_error(argument + ' is not a valid PDF' +
                                                ' file or a existing directory.')
