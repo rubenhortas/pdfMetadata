@@ -9,8 +9,8 @@
 @file:    MessagesMetadata.py
 """
 
-from presentation.Color import Color
-from presentation.Tag import Tag
+from presentation.color import Color
+from presentation.tag import Tag
 
 
 def print_file_name(print_file_name):
