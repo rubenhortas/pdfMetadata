@@ -13,7 +13,6 @@ import os
 from crosscutting import condition_messages
 
 
-# TODO: Do TXTLog and CSVLog as Log's inheritance and fix the __init__
 class Log:
     """
     Class Log
