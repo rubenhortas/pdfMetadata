@@ -32,9 +32,9 @@ if __name__ == '__main__':
 
     clear_screen()
 
-    interpreterVersion = get_interpreter_version()
+    interpreter_version = get_interpreter_version()
 
-    if(interpreterVersion == constants.PYTHON_REQUIRED_VERSION):
+    if(interpreter_version == constants.PYTHON_REQUIRED_VERSION):
 
         parser = argparse.ArgumentParser(prog='pdfMetadata')
         parser = argparse.ArgumentParser(description='Scan pdf files \
