@@ -49,16 +49,16 @@ if __name__ == '__main__':
                             help='Saves the output into a csv file.')
         args = parser.parse_args()
 
-        f_log_txt = args.log
-        f_log_csv = args.csv
+        log_txt = args.log
+        log_csv = args.csv
         total_files = 0
         analyzed_files = 0
 
         if args.log:
-            f_log_txt = LogTxt(args.log)
+            log_txt = LogTxt(args.log)
 
         if args.csv:
-            f_log_csv = LogCsv(args.csv)
+            log_csv = LogCsv(args.csv)
 
         for argument in args.arguments:
             if os.path.isfile(argument):
@@ -68,16 +68,16 @@ if __name__ == '__main__':
                 analyzed_files, total_files = scan_dir(argument,
                                                        analyzed_files,
                                                        total_files,
-                                                       f_log_txt,
-                                                       f_log_csv)
+                                                       log_txt,
+                                                       log_csv)
             else:
                 condition_messages.print_error(argument + ' is not a valid PDF' +
                                                ' file or a existing directory.')
 
-        if f_log_txt:
-            condition_messages.print_info('Saved to: ' + f_log_txt.file_name)
-        if f_log_csv:
-            condition_messages.print_info('Saved to: ' + f_log_csv.file_name)
+        if log_txt:
+            condition_messages.print_info('Saved to: ' + log_txt.file_name)
+        if log_csv:
+            condition_messages.print_info('Saved to: ' + log_csv.file_name)
 
         condition_messages.print_info('Analyzed files: ' + str(analyzed_files)
                                       + '/' + str(total_files))
