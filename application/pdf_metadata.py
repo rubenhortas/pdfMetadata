@@ -15,17 +15,21 @@ from crosscutting import Messages
 from domain.metadata import Metadata
 
 
-def get_file_info(file_abs_path):
+def get_file_info(file_abs_path, analyzed_files):
     """
     get_file_info(file_abs_path)
         Defined to use the script as a module.
 
     Arguments:
         - file_abs_path: (string) Absolute file path.
+        - analyzed_files: (integer) Files analyzed.
     """
 
     if os.path.isfile(file_abs_path):
         if file_abs_path.endswith('.pdf'):
+
+            analyzed_files = analyzed_files + 1
+
             metadata = Metadata(file_abs_path)
             metadata.print_info()
         else:
@@ -33,6 +37,8 @@ def get_file_info(file_abs_path):
                                ' is not a PDF file.')
     else:
         Messages.error_msg(file_abs_path + 'is not a file.')
+
+    return analyzed_files
 
 
 def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
@@ -49,11 +55,13 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
     try:
         for root, dirs, files in os.walk(path):
             for f in files:
+
+                total_files = total_files + 1
+
                 if f.endswith('.pdf'):
                     file_path = os.path.join(root, f)
 
                     analyzed_files = analyzed_files + 1
-                    total_files = total_files + 1
 
                     metadata = Metadata(file_path)
                     metadata.print_info()

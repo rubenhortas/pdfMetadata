@@ -62,12 +62,9 @@ if __name__ == '__main__':
 
         for argument in args.arguments:
             if os.path.isfile(argument):
-                analyzed_files = analyzed_files + 1  # FIXTHIS
                 total_files = total_files + 1
-                get_file_info(argument)
+                analyzed_files = get_file_info(argument, analyzed_files)
             elif os.path.isdir(argument):
-                # FIXTHIS
-                # I don't think that the counters works as expected
                 analyzed_files, total_files = scan_dir(argument,
                                                        analyzed_files,
                                                        total_files,
