@@ -10,7 +10,6 @@
 """
 
 import signal
-import signal
 from sys import version_info
 from crosscutting import condition_messages
 
