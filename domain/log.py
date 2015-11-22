@@ -29,7 +29,7 @@ class Log:
             self.file_name = name
         else:
             self.name = name.strip()
-            self.fname = self.name + self.extension
+            self.file_name = self.name + self.extension
 
     def __exists(self):
         """
@@ -65,5 +65,8 @@ class Log:
         i = 1
 
         while os.path.exists(file_name):
-            file_name = '{0} ({1}){2}'.format(self.name, i, self.extension)
+            file_name = '{0} ({1}){2}'.format(
+                self.name, i, self.extension)
             i = i + 1
+
+        self.file_name = file_name
