@@ -15,6 +15,10 @@ from crosscutting import condition_messages
 
 
 def get_interpreter_version():
+    """
+    get_interpreter_version()
+        Gets the current version of the python interpreter.
+    """
 
     major, minor, micro, releaselevel, serial = version_info
     return major
