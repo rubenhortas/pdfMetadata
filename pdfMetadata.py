@@ -86,5 +86,5 @@ if __name__ == '__main__':
             'Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
     else:
         condition_messages.print_error(
-            'Requires Python {0}'.format(PYTHON_REQUIRED_VERSION))
+            'Requires Python {0}'.format(constants.PYTHON_REQUIRED_VERSION))
         exit(0)
