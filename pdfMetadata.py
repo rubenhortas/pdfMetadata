@@ -19,7 +19,7 @@ from application.pdf_metadata import scan_dir
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
 from crosscutting import condition_messages
-from crosscutting import constants
+from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
 from domain.metadata import Metadata
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     interpreter_version = get_interpreter_version()
 
-    if(interpreter_version == constants.PYTHON_REQUIRED_VERSION):
+    if(interpreter_version == REQUIRED_PYTHON_VERSION):
 
         parser = argparse.ArgumentParser(prog='pdfMetadata')
         parser = argparse.ArgumentParser(description='Scan pdf files \
@@ -86,5 +86,5 @@ if __name__ == '__main__':
             'Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
     else:
         condition_messages.print_error(
-            'Requires Python {0}'.format(constants.PYTHON_REQUIRED_VERSION))
+            'Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
         exit(0)

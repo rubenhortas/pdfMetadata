@@ -10,4 +10,4 @@
 @interpreter: python3
 """
 
-PYTHON_REQUIRED_VERSION = 2
+REQUIRED_PYTHON_VERSION = 2
