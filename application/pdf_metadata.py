@@ -15,29 +15,24 @@ from crosscutting import condition_messages
 from domain.metadata import Metadata
 
 
-def get_file_info(file_abs_path, analyzed_files):
+def get_file_info(file_path, analyzed_files):
     """
-    get_file_info(file_abs_path)
+    get_file_info(file_path)
         Defined to use the script as a module.
 
     Arguments:
-        - file_abs_path: (string) Absolute file path.
+        - file_path: (string) Absolute file path.
         - analyzed_files: (integer) Files analyzed.
     """
 
-    if os.path.isfile(file_abs_path):
-        if file_abs_path.endswith('.pdf'):
+    if file_path.endswith('.pdf') or file_path.endswith('.PDF'):
+        analyzed_files = analyzed_files + 1
 
-            analyzed_files = analyzed_files + 1
-
-            metadata = Metadata(file_abs_path)
-            metadata.print_info()
-        else:
-            condition_messages.print_error(
-                '{0} is not a PDF file.'.format(file_abs_path))
+        metadata = Metadata(file_path)
+        metadata.print_info()
     else:
         condition_messages.print_error(
-            '{0} is not a file.'.format(file_abs_path))
+            '{0} is not a PDF file.'.format(file_path))
 
     return analyzed_files
 
@@ -57,17 +52,14 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
         for f in files:
             total_files = total_files + 1
 
-            if f.endswith('.pdf'):
-                file_path = os.path.join(root, f)
+            file_path = os.path.join(root, f)
 
-                analyzed_files = analyzed_files + 1
+            analyzed_files = analyzed_files + \
+                get_file_info(file_path, analyzed_files)
 
-                metadata = Metadata(file_path)
-                metadata.print_info()
-
-                if f_log_txt:
-                    f_log_txt.write(metadata)
-                if f_log_csv:
-                    f_log_csv.write(metadata)
+            if f_log_txt:
+                f_log_txt.write(metadata)
+            if f_log_csv:
+                f_log_csv.write(metadata)
 
     return analyzed_files, total_files
