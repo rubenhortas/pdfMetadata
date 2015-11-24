@@ -22,7 +22,7 @@ def print_document_info(field_name, field_value):
 
 
 def print_date(field_name, field_value):
-    print Tag.info + field_name + ':\t' + field_value
+    print '{0}{1}:\t{2}'.format(Tag.info, field_name, field_value)
 
 
 def print_highlighted(field_name, field_value):
