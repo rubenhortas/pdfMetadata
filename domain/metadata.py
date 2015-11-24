@@ -22,7 +22,7 @@ class Metadata:
         Dta and operations relatives to the pdf file.
     """
 
-    abs_path = None
+    absolute_path = None
     name = None
     title = None
     author = None
@@ -34,7 +34,7 @@ class Metadata:
     encrypted = None
     num_pages = None
     size = None
-    char_encoding = 'UTF-8'
+    coding = 'UTF-8'
 
     def __init__(self, file_abs_path):
         """
@@ -44,11 +44,11 @@ class Metadata:
             - file_abs_path: (string) Absolute file path.
         """
 
-        self.abs_path = file_abs_path
-        self.name = os.path.basename(self.abs_path)
+        self.absolute_path = file_abs_path
+        self.name = os.path.basename(self.absolute_path)
 
         try:
-            document = PdfFileReader(file(self.abs_path, 'rb'))
+            document = PdfFileReader(file(self.absolute_path, 'rb'))
 
             self.__get_encrypted_status(document)
 
@@ -83,25 +83,25 @@ class Metadata:
 
         file_name = document_info.get('/Title', None)
         if file_name:
-            self.title = file_name.encode(self.char_encoding)
+            self.title = file_name.encode(self.coding)
 
         author = document_info.get('/Author', None)
         if author:
-            self.author = author.encode(self.char_encoding)
+            self.author = author.encode(self.coding)
 
         creator = document_info.get('/Creator', None)
         if creator:
-            self.creator = creator.encode(self.char_encoding)
+            self.creator = creator.encode(self.coding)
 
         subject = document_info.subject
         if subject and (subject != ''):
-            self.subject = subject.encode(self.char_encoding)
+            self.subject = subject.encode(self.coding)
 
         producer = document_info.get('/Producer', None)
         if producer:
             if producer != '':
                 producer = producer.strip()
-                self.producer = producer.encode(self.char_encoding)
+                self.producer = producer.encode(self.coding)
 
         creation_date = document_info.get('/CreationDate', None)
         if creation_date:
@@ -118,7 +118,7 @@ class Metadata:
         """
 
         application_messages.print_file_name(self.name)
-        application_messages.print_document_info('Path', self.abs_path)
+        application_messages.print_document_info('Path', self.absolute_path)
 
         if self.title:
             application_messages.print_document_info('Title', self.title)
