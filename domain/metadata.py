@@ -58,7 +58,7 @@ class Metadata:
 
         except Exception as ex:
             if 'encode' not in str(ex):
-                condition_messages.print_exception(ex.message)
+                condition_messages.print_exception(ex)
 
     def __get_encrypted_status(self, document):
         """
