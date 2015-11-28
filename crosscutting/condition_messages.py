@@ -13,7 +13,7 @@ from presentation.tag import Tag
 
 
 def print_error(msg):
-    print('{0}{1}'.format(Tag.error, msg))
+    print('{0}{1}\n'.format(Tag.error, msg))
 
 
 def print_warning(msg):

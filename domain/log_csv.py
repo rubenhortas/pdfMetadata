@@ -48,8 +48,8 @@ class LogCsv(Log):
             if metadata.name:
                 f_log.write(metadata.name)
             f_log.write(self.field_separator)
-            if metadata.abs_path:
-                f_log.write(metadata.abs_path)
+            if metadata.absolute_path:
+                f_log.write(metadata.absolute_path)
             f_log.write(self.field_separator)
             if metadata.title:
                 f_log.write(metadata.title)
