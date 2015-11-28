@@ -31,7 +31,7 @@ class LogTxt(Log):
             if metadata.name:
                 f_log.write('File: {0}\n'.format(metadata.name))
             if metadata.abs_path:
-                f_log.write('Path: {0}\n'.format(metadata.abs_path))
+                f_log.write('Path: {0}\n'.format(metadata.absolute_path))
             if metadata.title:
                 f_log.write('Title: {0}\n'.format(metadata.title))
             if metadata.author:

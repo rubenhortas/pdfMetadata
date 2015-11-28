@@ -63,6 +63,51 @@ class Metadata:
             if 'encode' not in str(ex):
                 raise Exception(ex)
 
+    def print_info(self):
+        """
+        print_info(self)
+            Displays the metadata in a nice format.
+        """
+
+        if self.title:
+            application_messages.print_document_info('Title', self.title)
+
+        if self.author:
+            application_messages.print_highlighted('Author', self.author)
+
+        if self.creator:
+            application_messages.print_document_info('Creator', self.creator)
+
+        if self.subject:
+            application_messages.print_document_info('Subject', self.subject)
+
+        if self.producer:
+            application_messages.print_document_info('Producer', self.producer)
+
+        if self.creation_date:
+            application_messages.print_date(
+                'Creation date', self.creation_date)
+
+        if self.modification_date:
+            application_messages.print_date('Modification date',
+                                            self.modification_date)
+
+        if self.encrypted:
+            if self.encrypted == 'Yes':
+                application_messages.print_highlighted(
+                    'Encrypted', self.encrypted)
+            else:
+                application_messages.print_document_info(
+                    'Encrypted', self.encrypted)
+
+        if self.num_pages:
+            application_messages.print_document_info('Pages', self.num_pages)
+
+        if self.size:
+            application_messages.print_document_info(
+                'Size', '{0} bytes'.format(self.size))
+        print
+
     def __get_encrypted_status(self, document):
         """
         __get_encrypted_status(self, document)
@@ -113,48 +158,3 @@ class Metadata:
         modification_date = document_info.get('/ModDate', None)
         if modification_date:
             self.modification_date = Date.format_date(modification_date)
-
-    def print_info(self):
-        """
-        print_info(self)
-            Displays the metadata in a nice format.
-        """
-
-        if self.title:
-            application_messages.print_document_info('Title', self.title)
-
-        if self.author:
-            application_messages.print_highlighted('Author', self.author)
-
-        if self.creator:
-            application_messages.print_document_info('Creator', self.creator)
-
-        if self.subject:
-            application_messages.print_document_info('Subject', self.subject)
-
-        if self.producer:
-            application_messages.print_document_info('Producer', self.producer)
-
-        if self.creation_date:
-            application_messages.print_date(
-                'Creation date', self.creation_date)
-
-        if self.modification_date:
-            application_messages.print_date('Modification date',
-                                            self.modification_date)
-
-        if self.encrypted:
-            if self.encrypted == 'Yes':
-                application_messages.print_highlighted(
-                    'Encrypted', self.encrypted)
-            else:
-                application_messages.print_document_info(
-                    'Encrypted', self.encrypted)
-
-        if self.num_pages:
-            application_messages.print_document_info('Pages', self.num_pages)
-
-        if self.size:
-            application_messages.print_document_info(
-                'Size', '{0} bytes'.format(self.size))
-        print
