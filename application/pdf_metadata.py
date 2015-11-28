@@ -28,8 +28,11 @@ def get_file_info(file_path, analyzed_files):
     if file_path.endswith('.pdf') or file_path.endswith('.PDF'):
         analyzed_files = analyzed_files + 1
 
-        metadata = Metadata(file_path)
-        metadata.print_info()
+        try:
+            metadata = Metadata(file_path)
+            metadata.print_info()
+        except Exception as ex:
+            condition_messages.print_exception(ex)
     else:
         condition_messages.print_error(
             '{0} is not a PDF file.'.format(file_path))

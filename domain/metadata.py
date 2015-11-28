@@ -47,6 +47,9 @@ class Metadata:
         self.absolute_path = file_abs_path
         self.name = os.path.basename(self.absolute_path)
 
+        application_messages.print_file_name(self.name)
+        application_messages.print_document_info('Path', self.absolute_path)
+
         try:
             document = PdfFileReader(file(self.absolute_path, 'rb'))
 
@@ -58,7 +61,7 @@ class Metadata:
 
         except Exception as ex:
             if 'encode' not in str(ex):
-                condition_messages.print_exception(ex)
+                raise Exception(ex)
 
     def __get_encrypted_status(self, document):
         """
@@ -116,9 +119,6 @@ class Metadata:
         print_info(self)
             Displays the metadata in a nice format.
         """
-
-        application_messages.print_file_name(self.name)
-        application_messages.print_document_info('Path', self.absolute_path)
 
         if self.title:
             application_messages.print_document_info('Title', self.title)

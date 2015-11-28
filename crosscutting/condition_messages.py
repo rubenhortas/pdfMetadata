@@ -25,4 +25,4 @@ def print_info(msg):
 
 
 def print_exception(msg):
-    print('{0}{1}'.format(Tag.exception, msg))
+    print('{0}{1}\n'.format(Tag.exception, msg))
