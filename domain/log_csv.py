@@ -20,10 +20,10 @@ class LogCsv(Log):
         self.extension = '.csv'
         self.field_separator = ','
 
-        self._Log__set_file_name(name)
+        self._set_file_name(name)
 
-        if(self._Log__exists()):
-            self._Log__rename()
+        if self._exists():
+            self._rename()
 
         self.__write_header()
 

@@ -63,7 +63,12 @@ if __name__ == '__main__':
         for argument in args.arguments:
             if os.path.isfile(argument):
                 total_files = total_files + 1
-                analyzed_files = get_file_info(argument, analyzed_files)
+
+                metadata = get_file_info(argument)
+
+                if metadata:
+                    analyzed_files = analyzed_files + 1
+
             elif os.path.isdir(argument):
                 analyzed_files, total_files = scan_dir(argument,
                                                        analyzed_files,

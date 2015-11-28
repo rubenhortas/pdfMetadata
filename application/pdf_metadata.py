@@ -15,7 +15,7 @@ from crosscutting import condition_messages
 from domain.metadata import Metadata
 
 
-def get_file_info(file_path, analyzed_files):
+def get_file_info(file_path):
     """
     get_file_info(file_path)
         Defined to use the script as a module.
@@ -25,8 +25,9 @@ def get_file_info(file_path, analyzed_files):
         - analyzed_files: (integer) Files analyzed.
     """
 
+    metadata = None
+
     if file_path.endswith('.pdf') or file_path.endswith('.PDF'):
-        analyzed_files = analyzed_files + 1
 
         try:
             metadata = Metadata(file_path)
@@ -37,7 +38,7 @@ def get_file_info(file_path, analyzed_files):
         condition_messages.print_error(
             '{0} is not a PDF file.'.format(file_path))
 
-    return analyzed_files
+    return metadata
 
 
 def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
@@ -57,12 +58,14 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
 
             file_path = os.path.join(root, f)
 
-            analyzed_files = analyzed_files + \
-                get_file_info(file_path, analyzed_files)
+            metadata = get_file_info(file_path)
 
-            if f_log_txt:
-                f_log_txt.write(metadata)
-            if f_log_csv:
-                f_log_csv.write(metadata)
+            if metadata:
+                analyzed_files = analyzed_files + 1
+
+                if f_log_txt:
+                    f_log_txt.write(metadata)
+                if f_log_csv:
+                    f_log_csv.write(metadata)
 
     return analyzed_files, total_files

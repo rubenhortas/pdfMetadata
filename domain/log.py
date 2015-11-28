@@ -23,7 +23,7 @@ class Log:
     field_separator = None
     file_name = None  # Name with extension
 
-    def __set_file_name(self, name):
+    def _set_file_name(self, name):
         if name.endswith(self.extension):
             self.name = name.replace(self.extension, '').strip()
             self.file_name = name
@@ -31,9 +31,9 @@ class Log:
             self.name = name.strip()
             self.file_name = self.name + self.extension
 
-    def __exists(self):
+    def _exists(self):
         """
-            __exists(self)
+            _exists(self)
             Checks if file exists.
         """
 
@@ -55,9 +55,9 @@ class Log:
 
         return file_exists
 
-    def __rename(self):
+    def _rename(self):
         """
-        __rename(self)
+        _rename(self)
             Renames the file until does not exist.
         """
 

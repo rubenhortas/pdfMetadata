@@ -20,10 +20,10 @@ class LogTxt(Log):
         self.extension = '.txt'
         self.field_separator = '\n'
 
-        self._Log__set_file_name(name)
+        self._set_file_name(name)
 
-        if(self._Log__exists()):
-            self._Log__rename()
+        if self._exists():
+            self._rename()
 
     def write(self, metadata):
         try:
