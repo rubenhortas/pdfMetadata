@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     interpreter_version = get_interpreter_version()
 
-    if(interpreter_version == REQUIRED_PYTHON_VERSION):
+    if interpreter_version == REQUIRED_PYTHON_VERSION:
 
         parser = argparse.ArgumentParser(prog='pdfMetadata')
         parser = argparse.ArgumentParser(description='Scan pdf files \
@@ -77,8 +77,7 @@ if __name__ == '__main__':
                                                        log_csv)
             else:
                 condition_messages.print_error(
-                    '{0} is not a valid PDF file or a existing directory.',
-                    argument)
+                    '{0} is not a valid PDF file or a existing directory.'.format(argument))
 
         if log_txt:
             condition_messages.print_info(
