@@ -28,7 +28,6 @@ def get_file_info(file_path):
     metadata = None
 
     if file_path.lower().endswith('.pdf'):
-
         try:
             metadata = Metadata(file_path)
             metadata.print_info()
