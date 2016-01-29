@@ -17,13 +17,7 @@ from log import Log
 class LogTxt(Log):
 
     def __init__(self, name):
-        self.extension = '.txt'
-        self.field_separator = '\n'
-
-        self._set_file_name(name)
-
-        if self._exists():
-            self._rename()
+        super(LogTxt, self).__init__(name, '.txt', '\n')
 
     def write(self, metadata):
         try:

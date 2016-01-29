@@ -17,13 +17,7 @@ from log import Log
 class LogCsv(Log):
 
     def __init__(self, name):
-        self.extension = '.csv'
-        self.field_separator = ','
-
-        self._set_file_name(name)
-
-        if self._exists():
-            self._rename()
+        super(LogCsv, self).__init__(name, '.csv', ',')
 
         self.__write_header()
 

@@ -69,6 +69,12 @@ if __name__ == '__main__':
                 if metadata:
                     analyzed_files = analyzed_files + 1
 
+                    if log_txt:
+                        log_txt.write(metadata)
+
+                    if log_csv:
+                        log_csv.write(metadata)
+
             elif os.path.isdir(argument):
                 analyzed_files, total_files = scan_dir(argument,
                                                        analyzed_files,
