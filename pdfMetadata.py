@@ -23,7 +23,7 @@ from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
 from domain.metadata import Metadata
-from presentation.utils.clear_screen import clear_screen
+from presentation.utils.screen import clear_screen
 
 
 if __name__ == '__main__':
