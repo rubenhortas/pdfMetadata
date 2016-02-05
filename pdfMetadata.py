@@ -18,7 +18,8 @@ from application.pdf_metadata import get_metadata
 from application.pdf_metadata import scan
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_info
+from crosscutting.consdition_messages import print_error
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
@@ -49,8 +50,6 @@ if __name__ == '__main__':
                             help='Saves the output into a csv file.')
         args = parser.parse_args()
 
-        log_txt = args.log
-        log_csv = args.csv
         total_files = 0
         analyzed_files = 0
 
@@ -79,19 +78,16 @@ if __name__ == '__main__':
                 analyzed_files, total_files = scan(
                     argument, analyzed_files, total_files, log_txt, log_csv)
             else:
-                condition_messages.print_error(
+                print_error(
                     '{0} is not a valid PDF file or a existing directory.'.format(argument))
 
         if log_txt:
-            condition_messages.print_info(
-                'Saved to: {0}'.format(log_txt.file_name))
+            print_info('Saved to: {0}'.format(log_txt.file_name))
         if log_csv:
-            condition_messages.print_info(
-                'Saved to: {0}'.format(log_csv.file_name))
+            print_info('Saved to: {0}'.format(log_csv.file_name))
 
-        condition_messages.print_info(
+        print_info(
             'Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
     else:
-        condition_messages.print_error(
-            'Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
+        print_error('Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
         exit(0)

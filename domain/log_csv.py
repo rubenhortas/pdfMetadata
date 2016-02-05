@@ -10,7 +10,7 @@
 @interpreter: python3
 """
 
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_exception
 from log import Log
 
 
@@ -34,7 +34,7 @@ class LogCsv(Log):
                         ' Encrypted, Pages, Size\n')
             f_log.close()
         except Exception as ex:
-            condition_messages.print_exception(ex)
+            print_exception(ex)
 
     def write(self, metadata):
         try:
@@ -99,4 +99,4 @@ class LogCsv(Log):
             f_log.close()
 
         except Exception as ex:
-            condition_messages.print_exception(ex)
+            print_exception(ex)

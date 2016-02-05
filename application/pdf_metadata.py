@@ -11,7 +11,8 @@
 """
 
 import os
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_error
+from crosscutting.condition_messages import print_exception
 from domain.metadata import Metadata
 
 
@@ -32,10 +33,9 @@ def get_metadata(file_path):
             metadata = Metadata(file_path)
             metadata.print_info()
         except Exception as ex:
-            condition_messages.print_exception(ex)
+            print_exception(ex)
     else:
-        condition_messages.print_error(
-            '{0} is not a PDF file.'.format(file_path))
+        print_error('{0} is not a PDF file.'.format(file_path))
 
     return metadata
 

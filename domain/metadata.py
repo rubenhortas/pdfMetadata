@@ -13,7 +13,6 @@ from PyPDF2 import PdfFileReader
 import os
 import Date as Date
 from crosscutting import application_messages
-from crosscutting import condition_messages
 
 
 class Metadata:

@@ -10,7 +10,7 @@
 """
 
 import os
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_info
 
 
 class Log(object):
@@ -52,15 +52,13 @@ class Log(object):
         # Check if target data file is a directory
         # It happens in the real world...
         if os.path.isdir(self.file_name):
-            condition_messages.print_info(
-                '{0} is a dir.'.format(self.file_name))
+            print_info('{0} is a dir.'.format(self.file_name))
 
             # Create another data file
             self.file_name = 'pdfMetadataLog'
 
         if os.path.exists(self.file_name):
-            condition_messages.print_info(
-                '{0} already exists.'.format(self.file_name))
+            print_info('{0} already exists.'.format(self.file_name))
             file_exists = True
 
         return file_exists

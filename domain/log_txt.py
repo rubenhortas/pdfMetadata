@@ -10,7 +10,7 @@
 @interpreter: python3
 """
 
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_exception
 from log import Log
 
 
@@ -62,4 +62,4 @@ class LogTxt(Log):
             f_log.write('\n')
             f_log.close()
         except Exception as ex:
-            condition_messages.print_exception(ex)
+            print_exception(ex)
