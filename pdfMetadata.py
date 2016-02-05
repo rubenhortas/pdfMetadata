@@ -14,8 +14,8 @@ import os
 import signal
 import sys
 
-from application.pdf_metadata import get_file_info
-from application.pdf_metadata import scan_dir
+from application.pdf_metadata import get_metadata
+from application.pdf_metadata import scan
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
 from crosscutting import condition_messages
@@ -64,7 +64,7 @@ if __name__ == '__main__':
             if os.path.isfile(argument):
                 total_files = total_files + 1
 
-                metadata = get_file_info(argument)
+                metadata = get_metadata(argument)
 
                 if metadata:
                     analyzed_files = analyzed_files + 1
@@ -76,11 +76,8 @@ if __name__ == '__main__':
                         log_csv.write(metadata)
 
             elif os.path.isdir(argument):
-                analyzed_files, total_files = scan_dir(argument,
-                                                       analyzed_files,
-                                                       total_files,
-                                                       log_txt,
-                                                       log_csv)
+                analyzed_files, total_files = scan(
+                    argument, analyzed_files, total_files, log_txt, log_csv)
             else:
                 condition_messages.print_error(
                     '{0} is not a valid PDF file or a existing directory.'.format(argument))

@@ -15,9 +15,9 @@ from crosscutting import condition_messages
 from domain.metadata import Metadata
 
 
-def get_file_info(file_path):
+def get_metadata(file_path):
     """
-    get_file_info(file_path)
+    get_metadata(file_path)
         Defined to use the script as a module.
 
     Arguments:
@@ -40,15 +40,17 @@ def get_file_info(file_path):
     return metadata
 
 
-def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
+def scan(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
     """
-    __scan_dir(dir_name, plain_log, csv_log)
+    scan(path, analyzed_files, total_files, f_log_txt, f_log_csv)
         Scans an entire directory looking for pdf files to display its
         metadata.
     Arguments:
         - path: (string) Target directory for scan.
         - analyzed_files: (integer) Files analyzed.
         - total_files: (integer) Total files analyzed.
+        - f_log_txt: (string) txt log file.
+        - f_log_csv: (string) csv log file.
     """
 
     for root, dirs, files in os.walk(path):
@@ -57,7 +59,7 @@ def scan_dir(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
 
             file_path = os.path.join(root, f)
 
-            metadata = get_file_info(file_path)
+            metadata = get_metadata(file_path)
 
             if metadata:
                 analyzed_files = analyzed_files + 1
