@@ -18,8 +18,8 @@ from application.pdf_metadata import get_metadata
 from application.pdf_metadata import scan
 from application.utils.python_utils import exit_signal_handler
 from application.utils.python_utils import get_interpreter_version
+from crosscutting.condition_messages import print_error
 from crosscutting.condition_messages import print_info
-from crosscutting.consdition_messages import print_error
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
@@ -50,6 +50,8 @@ if __name__ == '__main__':
                             help='Saves the output into a csv file.')
         args = parser.parse_args()
 
+        log_txt = None
+        log_csv = None
         total_files = 0
         analyzed_files = 0
 
