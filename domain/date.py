@@ -37,7 +37,7 @@ def format_date(input_date):
     if date_format_1.match(input_date):
         date_format1 = date_format_1.match(input_date).group(0)
         d = datetime.strptime(date_format1, "D:%Y%m%d%H%M%S")
-        date = datetime.strftime(d, "%H:%M:%S %d/%b/%Y (%a)")
+        date = d.strftime("%H:%M:%S %d/%b/%Y (%a)")
 
     """
     Format:
@@ -45,7 +45,7 @@ def format_date(input_date):
     """
     if date_format_2.match(input_date):
         d = datetime.strptime(input_date, "%m/%d/%Y %H:%M:%S")
-        date = datetime.strftime(d, "%H:%M:%S %d/%b/%Y (%a)")
+        date = d.strftime("%H:%M:%S %d/%b/%Y (%a)")
 
     """
     Format:
@@ -53,6 +53,6 @@ def format_date(input_date):
     """
     if date_format_3.match(input_date):
         d = datetime.strptime(input_date, "%a %b %d %H:%M:%S %Y")
-        date = datetime.strftime(d, "%H:%M:%S %d/%b/%Y (%a)")
+        date = d.strftime("%H:%M:%S %d/%b/%Y (%a)")
 
     return date
