@@ -22,8 +22,7 @@ def get_metadata(file_path):
         Defined to use the script as a module.
 
     Arguments:
-        - file_path: (string) Absolute file path.
-        - analyzed_files: (integer) Files analyzed.
+        file_path: (string) Absolute file path.
     """
 
     metadata = None
@@ -46,11 +45,11 @@ def scan(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
         Scans an entire directory looking for pdf files to display its
         metadata.
     Arguments:
-        - path: (string) Target directory for scan.
-        - analyzed_files: (integer) Files analyzed.
-        - total_files: (integer) Total files analyzed.
-        - f_log_txt: (string) txt log file.
-        - f_log_csv: (string) csv log file.
+        path: (string) Target directory for scan.
+        analyzed_files: (integer) Files analyzed.
+        total_files: (integer) Total files analyzed.
+        f_log_txt: (string) txt log file.
+        f_log_csv: (string) csv log file.
     """
 
     for root, dirs, files in os.walk(path):

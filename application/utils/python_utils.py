@@ -9,9 +9,8 @@
 @file:    python_utils.py
 """
 
-import signal
 from sys import version_info
-from crosscutting import condition_messages
+from crosscutting.condition_messages import print_info
 
 
 def get_interpreter_version():
@@ -29,10 +28,10 @@ def exit_signal_handler(signal, frame):
     exit_signal_handler(signal, frame)
         Handles an exit signal.
     Arguments:
-        - signal: (int) number of signal.
-        - frame: (string) name of the signal handler.
+        signal: (int) number of signal.
+        frame: (string) name of the signal handler.
     """
 
     print
-    condition_messages.print_info("Stopped")
+    print_info("Stopped")
     exit(0)

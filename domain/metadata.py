@@ -11,8 +11,8 @@
 
 from PyPDF2 import PdfFileReader
 import os
-import Date as Date
 from crosscutting import application_messages
+from domain.date import format_date
 
 
 class Metadata:
@@ -152,8 +152,8 @@ class Metadata:
 
         creation_date = document_info.get('/CreationDate', None)
         if creation_date:
-            self.creation_date = Date.format_date(creation_date)
+            self.creation_date = format_date(creation_date)
 
         modification_date = document_info.get('/ModDate', None)
         if modification_date:
-            self.modification_date = Date.format_date(modification_date)
+            self.modification_date = format_date(modification_date)

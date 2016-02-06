@@ -1,7 +1,1 @@
-*.txt
-*.csv
-*.pyc
-*.project
-*.pydevproject
-.settings
 .idea/

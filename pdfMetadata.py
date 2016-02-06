@@ -12,7 +12,6 @@
 import argparse
 import os
 import signal
-import sys
 
 from application.pdf_metadata import get_metadata
 from application.pdf_metadata import scan
@@ -23,7 +22,6 @@ from crosscutting.condition_messages import print_info
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
-from domain.metadata import Metadata
 from presentation.utils.screen import clear_screen
 
 
