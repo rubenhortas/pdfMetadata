@@ -15,7 +15,6 @@ from log import Log
 
 
 class LogTxt(Log):
-
     def __init__(self, name):
         super(LogTxt, self).__init__(name, '.txt', '\n')
 
@@ -44,12 +43,10 @@ class LogTxt(Log):
                 f_log.write('Producer: {0}\n'.format(metadata.producer))
 
             if metadata.creation_date:
-                f_log.write(
-                    'Creation date: {0}\n'.format(metadata.creation_date))
+                f_log.write('Creation date: {0}\n'.format(metadata.creation_date))
 
             if metadata.modification_date:
-                f_log.write(
-                    'Modification date: {0}\n'.format(metadata.modification_date))
+                f_log.write('Modification date: {0}\n'.format(metadata.modification_date))
 
             f_log.write('Encrypted: {0}\n'.format(metadata.encrypted))
 

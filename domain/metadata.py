@@ -9,8 +9,9 @@
 @file:    metadata.py
 """
 
-from PyPDF2 import PdfFileReader
 import os
+from PyPDF2 import PdfFileReader
+
 from crosscutting import application_messages
 from domain.date import format_date
 
@@ -84,27 +85,23 @@ class Metadata:
             application_messages.print_document_info('Producer', self.producer)
 
         if self.creation_date:
-            application_messages.print_date(
-                'Creation date', self.creation_date)
+            application_messages.print_date('Creation date', self.creation_date)
 
         if self.modification_date:
-            application_messages.print_date('Modification date',
-                                            self.modification_date)
+            application_messages.print_date('Modification date', self.modification_date)
 
         if self.encrypted:
             if self.encrypted == 'Yes':
-                application_messages.print_highlighted(
-                    'Encrypted', self.encrypted)
+                application_messages.print_highlighted('Encrypted', self.encrypted)
             else:
-                application_messages.print_document_info(
-                    'Encrypted', self.encrypted)
+                application_messages.print_document_info('Encrypted', self.encrypted)
 
         if self.num_pages:
             application_messages.print_document_info('Pages', self.num_pages)
 
         if self.size:
-            application_messages.print_document_info(
-                'Size', '{0} bytes'.format(self.size))
+            application_messages.print_document_info('Size', '{0} bytes'.format(self.size))
+
         print
 
     def __get_encrypted_status(self, document):

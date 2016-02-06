@@ -9,8 +9,8 @@
 @file:    date.py
 """
 
-from datetime import datetime
 import re
+from datetime import datetime
 
 
 def format_date(input_date):
@@ -22,10 +22,8 @@ def format_date(input_date):
      """
 
     date_format_1 = re.compile("^D:[0-9]{14}")
-    date_format_2 = re.compile(
-        "[0-9]{1,2}/[0-9]{1,2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}")
-    date_format_3 = re.compile(
-        "^[a-zA-Z]{3} [a-zA-Z]{3} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}")
+    date_format_2 = re.compile("[0-9]{1,2}/[0-9]{1,2}/[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}")
+    date_format_3 = re.compile("^[a-zA-Z]{3} [a-zA-Z]{3} [0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [0-9]{4}")
 
     date = input_date
 
