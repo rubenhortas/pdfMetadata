@@ -21,7 +21,7 @@ REQUIREMENTS
 
 INSTALLATION
 
-    Enter into the directory where is extracted pdfMetadta,
+    Enter into the directory where is extracted pdfMetadata,
     f.e: ~/pdfMetadata, then runs:
 
         python setup.py install
@@ -45,7 +45,7 @@ USAGE
         TARGET is a directory, pdfMetadata scans it recursively
         searching pdf files to analyze.
         Ex:
-            pdfMetdata foo.pdf /foo/bar bar.pdf
+            pdfMetadata foo.pdf /foo/bar bar.pdf
 
 
 CONTACT
@@ -57,6 +57,6 @@ CONTACT
 
 WEB SITE
 
-    Visit the pdfMetadata github site for the lastest news and downloads:
+    Visit the pdfMetadata github site for the latest news and downloads:
 
     https://github.com/rubenhortas/pdfMetadata
