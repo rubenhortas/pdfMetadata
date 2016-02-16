@@ -22,7 +22,7 @@ REQUIREMENTS
 INSTALLATION
 
     Enter into the directory where is extracted pdfMetadata,
-    f.e: ~/pdfMetadata, then runs:
+    e.g. ~/pdfMetadata, then runs:
 
         python setup.py install
 
