@@ -4,17 +4,6 @@ pdfMetadata
 	pdfMetadata is a python script that gets and displays metadata from
 	pdf files.
 
-AUTHOR
-
-    Rubén Hortas
-    Contact: rubenhortas at gmail.com
-    Website: http://www.rubenhortas.blogspot.com.es
-
-LICENSE
-
-    CC BY-NC-SA 3.0
-    http://creativecommons.org/licenses/by-nc-sa/3.0/
-
 REQUIREMENTS
 
     PyPDF2
@@ -46,7 +35,17 @@ USAGE
         searching pdf files to analyze.
         Ex:
             pdfMetadata foo.pdf /foo/bar bar.pdf
+            
+AUTHOR
 
+    Rubén Hortas
+    Contact: rubenhortas at gmail.com
+    Website: http://www.rubenhortas.blogspot.com.es
+
+LICENSE
+
+    CC BY-NC-SA 3.0
+    http://creativecommons.org/licenses/by-nc-sa/3.0/
 
 CONTACT
 
