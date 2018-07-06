@@ -15,7 +15,6 @@ from log import Log
 
 
 class LogCsv(Log):
-
     def __init__(self, name):
         super(LogCsv, self).__init__(name, '.csv', ',')
 
@@ -31,7 +30,7 @@ class LogCsv(Log):
             f_log = open(self.file_name, 'w')
             f_log.write('#File name, Title, Author, Creator, Subject,'
                         ' Producer, Creation date, Modification date,'
-                        ' Encrypted, Pages, Size\n')
+                        ' Encrypted, Pages, Size, Keywords\n')
             f_log.close()
         except Exception as ex:
             print_exception(ex)
@@ -94,6 +93,11 @@ class LogCsv(Log):
 
             if metadata.size:
                 f_log.write(metadata.size)
+
+            f_log.write(self.field_separator)
+
+            if metadata.keywords:
+                f_log.write(metadata.keywords)
 
             f_log.write('\n')
             f_log.close()

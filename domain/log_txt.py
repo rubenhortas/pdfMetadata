@@ -56,6 +56,9 @@ class LogTxt(Log):
             if metadata.size:
                 f_log.write('Size: {0}\n'.format(metadata.size))
 
+            if metadata.keywords:
+                f_log.write('Keywords: {0}\n'.format(metadata.keywords))
+
             f_log.write('\n')
             f_log.close()
         except Exception as ex:

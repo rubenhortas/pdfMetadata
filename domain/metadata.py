@@ -34,6 +34,7 @@ class Metadata:
     encrypted = None
     num_pages = None
     size = None
+    keywords = None
     coding = 'UTF-8'
 
     def __init__(self, file_abs_path):
@@ -58,6 +59,10 @@ class Metadata:
             document_info = document.getDocumentInfo()
             if document_info:
                 self.__parse_document_info(document_info)
+
+            self.num_pages = str(document.getNumPages())
+            self.size = str(os.path.getsize(file_abs_path))
+            self.__get_keywords(document)
 
         except Exception as ex:
             if 'encode' not in str(ex):
@@ -101,6 +106,9 @@ class Metadata:
 
         if self.size:
             application_messages.print_document_info('Size', '{0} bytes'.format(self.size))
+
+        if self.keywords:
+            application_messages.print_document_info('Keywords', self.keywords)
 
         print
 
@@ -154,3 +162,14 @@ class Metadata:
         modification_date = document_info.get('/ModDate', None)
         if modification_date:
             self.modification_date = format_date(modification_date)
+
+    def __get_keywords(self, document):
+        """
+        __get_keywords(self, document)
+            Return keywords if exists.
+        Arguments:
+            - document: (pdfFileReader) PDF file.
+        """
+        keywords = document.getXmpMetadata().pdf_keywords
+        if keywords:
+            self.keywords = keywords.encode(self.coding).replace(',', ';')
