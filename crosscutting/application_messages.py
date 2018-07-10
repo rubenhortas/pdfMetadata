@@ -15,7 +15,6 @@ from presentation.tag import Tag
 def print_file_name(f):
     print '{0}{1}{2}{3}'.format(Tag.info, Color.bold_green, f, Color.end)
 
-
 def print_document_info(field_name, field_value):
     print '{0}{1}:\t\t{2}'.format(Tag.info, field_name, field_value)
 
