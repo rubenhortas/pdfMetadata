@@ -12,7 +12,6 @@
 from presentation.color import Color
 from presentation.tag import Tag
 
-
 def print_file_name(f):
     print '{0}{1}{2}{3}'.format(Tag.info, Color.bold_green, f, Color.end)
 

@@ -24,7 +24,6 @@ from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
 from presentation.utils.screen import clear_screen
 
-
 if __name__ == '__main__':
 
     signal.signal(signal.SIGINT, exit_signal_handler)

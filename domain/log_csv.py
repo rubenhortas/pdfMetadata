@@ -28,7 +28,7 @@ class LogCsv(Log):
 
         try:
             f_log = open(self.file_name, 'w')
-            f_log.write('#File name, Title, Author, Creator, Subject,'
+            f_log.write('#File name, Path, Title, Author, Creator, Subject,'
                         ' Producer, Creation date, Modification date,'
                         ' Encrypted, Pages, Size, Keywords\n')
             f_log.close()
