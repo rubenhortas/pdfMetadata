@@ -52,7 +52,7 @@ class Metadata:
         application_messages.print_document_info('Path', self.absolute_path)
 
         try:
-            document = PdfFileReader(file(self.absolute_path, 'rb'))
+            document = PdfFileReader(file(self.absolute_path, 'rb'), strict=False)
 
             self.__get_encrypted_status(document)
 
@@ -171,5 +171,6 @@ class Metadata:
             - document: (pdfFileReader) PDF file.
         """
         keywords = document.getXmpMetadata().pdf_keywords
+        print keywords
         if keywords:
             self.keywords = keywords.encode(self.coding).replace(',', ';')
