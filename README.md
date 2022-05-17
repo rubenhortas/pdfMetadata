@@ -36,4 +36,4 @@ USAGE
             pdfMetadata foo.pdf /foo/bar bar.pdf
             
 ## Support
-If you find this widget useful you can star this repo.
+If you find this application useful you can star this repo.
