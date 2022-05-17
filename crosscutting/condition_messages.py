@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# _*_ coding:utf-8 _*
 from presentation.tag import Tag
 
 

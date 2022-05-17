@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# _*_ coding:utf-8 _*
 from sys import version_info
 from crosscutting.condition_messages import print_info
 
