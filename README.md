@@ -35,5 +35,5 @@ USAGE
         Ex:
             pdfMetadata foo.pdf /foo/bar bar.pdf
             
-# Support
+## Support
 If you find this application useful you can star this repo.
