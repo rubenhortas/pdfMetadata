@@ -4,7 +4,7 @@ import signal
 
 from application.pdf_metadata import get_metadata
 from application.pdf_metadata import scan
-from application.utils.python_utils import exit_signal_handler
+from application.utils.python_utils import handle_sigint
 from application.utils.python_utils import get_interpreter_version
 from crosscutting.condition_messages import print_error
 from crosscutting.condition_messages import print_info
@@ -14,7 +14,7 @@ from domain.log_txt import LogTxt
 from presentation.utils.screen import clear_screen
 
 if __name__ == '__main__':
-    signal.signal(signal.SIGINT, exit_signal_handler)
+    signal.signal(signal.SIGINT, handle_sigint)
 
     clear_screen()
 
