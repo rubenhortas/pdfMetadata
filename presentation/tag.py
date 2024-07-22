@@ -1,12 +1,8 @@
-from presentation.color import Color
+from colorama import Fore, Style
 
 
 class Tag:
-    """
-    Defines the tags for each message shown in the output.
-    """
-
-    error = "[{0}ERROR{1}]".format(Color.bold_red, Color.end)
-    exception = "[{0}EXCEPTION{1}]".format(Color.bold_red, Color.end)
-    info = "[{0}*{1}]".format(Color.green, Color.end)
-    warning = "[{0}Warning{1}]".format(Color.bold_orange, Color.end)
+    error = f"[{Style.BRIGHT}{Fore.RED}ERROR{Style.RESET_ALL}]"
+    exception = f"[{Style.BRIGHT}{Fore.RED}EXCEPTION{Style.RESET_ALL}]"
+    info = f"[{Style.BRIGHT}{Fore.GREEN}*{Style.RESET_ALL}]"
+    warning = f"[{Style.BRIGHT}{Fore.YELLOW}Warning{Style.RESET_ALL}]"
