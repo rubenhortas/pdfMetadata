@@ -2,7 +2,7 @@ import os
 from PyPDF2 import PdfFileReader
 
 from crosscutting import application_messages
-from domain.date import format_date
+from application.utils.date_utils import get_date
 
 
 class Metadata:
@@ -143,11 +143,11 @@ class Metadata:
 
         creation_date = document_info.get('/CreationDate', None)
         if creation_date:
-            self.creation_date = format_date(creation_date)
+            self.creation_date = get_date(creation_date)
 
         modification_date = document_info.get('/ModDate', None)
         if modification_date:
-            self.modification_date = format_date(modification_date)
+            self.modification_date = get_date(modification_date)
 
     def __get_keywords(self, document):
         """
