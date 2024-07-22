@@ -99,7 +99,7 @@ class Metadata:
         if self.keywords:
             application_messages.print_document_info('Keywords', self.keywords)
 
-        print
+        print()
 
     def __get_encrypted_status(self, document):
         """
@@ -160,6 +160,8 @@ class Metadata:
             - document: (pdfFileReader) PDF file.
         """
         keywords = document.getXmpMetadata().pdf_keywords
-        print keywords
+
+        print(keywords)
+
         if keywords:
             self.keywords = keywords.encode(self.coding).replace(',', ';')
