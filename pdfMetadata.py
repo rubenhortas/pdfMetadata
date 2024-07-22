@@ -14,7 +14,6 @@ from domain.log_txt import LogTxt
 from presentation.utils.screen import clear_screen
 
 if __name__ == '__main__':
-
     signal.signal(signal.SIGINT, exit_signal_handler)
 
     clear_screen()
@@ -22,17 +21,10 @@ if __name__ == '__main__':
     interpreter_version = get_interpreter_version()
 
     if interpreter_version == REQUIRED_PYTHON_VERSION:
-        parser = argparse.ArgumentParser(prog='pdfMetadata',
-                                         description='Scan pdf files \
-                                         looking for their metadata.')
-        parser.add_argument('arguments',
-                            metavar='ARGUMENTS',
-                            nargs='+',
-                            help='file[s] or path[s] to scan pdf files')
-        parser.add_argument('--log', metavar='log file', nargs='?',
-                            help='Saves the output into a plain text file.')
-        parser.add_argument('--csv', metavar='csv file', nargs='?',
-                            help='Saves the output into a csv file.')
+        parser = argparse.ArgumentParser(prog='pdfMetadata', description='Scan pdf files looking for their metadata.')
+        parser.add_argument('arguments', metavar='ARGUMENTS', nargs='+', help='file[s] or path[s] to scan pdf files')
+        parser.add_argument('--log', metavar='log file', nargs='?', help='Saves the output into a plain text file.')
+        parser.add_argument('--csv', metavar='csv file', nargs='?', help='Saves the output into a csv file.')
         args = parser.parse_args()
 
         log_txt = None
@@ -49,7 +41,6 @@ if __name__ == '__main__':
         for argument in args.arguments:
             if os.path.isfile(argument):
                 total_files = total_files + 1
-
                 metadata = get_metadata(argument)
 
                 if metadata:
@@ -60,21 +51,18 @@ if __name__ == '__main__':
 
                     if log_csv:
                         log_csv.write(metadata)
-
             elif os.path.isdir(argument):
-                analyzed_files, total_files = scan(
-                    argument, analyzed_files, total_files, log_txt, log_csv)
+                analyzed_files, total_files = scan(argument, analyzed_files, total_files, log_txt, log_csv)
             else:
-                print_error(
-                    '{0} is not a valid PDF file or a existing directory.'.format(argument))
+                print_error('{0} is not a valid PDF file or a existing directory.'.format(argument))
 
         if log_txt:
             print_info('Saved to: {0}'.format(log_txt.file_name))
+
         if log_csv:
             print_info('Saved to: {0}'.format(log_csv.file_name))
 
-        print_info(
-            'Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
+        print_info('Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
     else:
         print_error('Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
         exit(0)
