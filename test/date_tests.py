@@ -1,6 +1,6 @@
 import unittest
 
-from application.utils.date_utils import get_date
+from domain.utils.date_utils import get_date
 
 
 class DateTest(unittest.TestCase):

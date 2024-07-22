@@ -1,5 +1,5 @@
 import os
-from crosscutting.condition_messages import print_info
+from presentation.condition_messages import print_info
 
 
 class Log(object):

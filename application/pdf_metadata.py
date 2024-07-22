@@ -1,6 +1,6 @@
 import os
-from crosscutting.condition_messages import print_error
-from crosscutting.condition_messages import print_exception
+from presentation.condition_messages import print_error
+from presentation.condition_messages import print_exception
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
 from domain.metadata import Metadata

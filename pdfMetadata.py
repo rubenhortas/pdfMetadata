@@ -4,10 +4,10 @@ import signal
 
 from application.pdf_metadata import get_metadata
 from application.pdf_metadata import scan
-from application.utils.python_utils import handle_sigint
-from application.utils.python_utils import get_interpreter_version
-from crosscutting.condition_messages import print_error
-from crosscutting.condition_messages import print_info
+from crosscutting.utils.python_utils import handle_sigint
+from crosscutting.utils.python_utils import get_interpreter_version
+from presentation.condition_messages import print_error
+from presentation.condition_messages import print_info
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt

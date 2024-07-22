@@ -1,4 +1,4 @@
-from crosscutting.condition_messages import print_exception
+from presentation.condition_messages import print_exception
 from log import Log
 
 

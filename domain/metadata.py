@@ -1,8 +1,8 @@
 import os
 from PyPDF2 import PdfFileReader
 
-from crosscutting import application_messages
-from application.utils.date_utils import get_date
+from presentation import application_messages
+from domain.utils.date_utils import get_date
 
 
 class Metadata:
