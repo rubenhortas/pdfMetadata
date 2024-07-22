@@ -5,10 +5,6 @@ def print_error(msg):
     print('{0}{1}\n'.format(Tag.error, msg))
 
 
-def print_warning(msg):
-    print('{0}{1}'.format(Tag.warning, msg))
-
-
 def print_info(msg):
     print('{0}{1}'.format(Tag.info, msg))
 
