@@ -41,18 +41,19 @@ class Metadata:
         application_messages.print_document_info('Path', self.absolute_path)
 
         try:
-            document = PdfFileReader(file(self.absolute_path, 'rb'), strict=False)
+            file = open(self.absolute_path, 'rb')
+            document = PdfFileReader(file, strict=False)
 
             self.__get_encrypted_status(document)
 
             document_info = document.getDocumentInfo()
+
             if document_info:
                 self.__parse_document_info(document_info)
 
             self.num_pages = str(document.getNumPages())
             self.size = str(os.path.getsize(file_abs_path))
             self.__get_keywords(document)
-
         except Exception as ex:
             if 'encode' not in str(ex):
                 raise Exception(ex)
@@ -62,7 +63,6 @@ class Metadata:
         print_info(self)
             Displays the metadata in a nice format.
         """
-
         if self.title:
             application_messages.print_document_info('Title', self.title)
 
@@ -108,7 +108,6 @@ class Metadata:
         Arguments:
             - document: (pdfFileReader) PDF file.
         """
-
         if document.getIsEncrypted() is True:
             self.encrypted = 'Yes'
         else:
@@ -121,7 +120,6 @@ class Metadata:
         Arguments:
             - document_info: (pdfFileReader.getDocumentInfo()) Metadata.
         """
-
         file_name = document_info.get('/Title', None)
         if file_name:
             self.title = file_name.encode(self.coding)
