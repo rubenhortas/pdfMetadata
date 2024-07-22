@@ -8,9 +8,8 @@ from domain.date import format_date
 class Metadata:
     """
     Class Metadata
-        Dta and operations relatives to the pdf file.
+        Data and operations relatives to the pdf file.
     """
-
     absolute_path = None
     name = None
     title = None
