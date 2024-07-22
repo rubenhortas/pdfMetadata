@@ -26,13 +26,6 @@ class Metadata:
     coding = 'UTF-8'
 
     def __init__(self, file_abs_path):
-        """
-        __init__(self, file_abs_path):
-
-        Arguments:
-            - file_abs_path: (string) Absolute file path.
-        """
-
         self.absolute_path = file_abs_path
         self.name = os.path.basename(self.absolute_path)
 
@@ -43,16 +36,16 @@ class Metadata:
             file = open(self.absolute_path, 'rb')
             document = PdfFileReader(file, strict=False)
 
-            self.__get_encrypted_status(document)
+            self._get_encrypted_status(document)
 
             document_info = document.getDocumentInfo()
 
             if document_info:
-                self.__parse_document_info(document_info)
+                self._parse_document_info(document_info)
 
             self.num_pages = str(document.getNumPages())
             self.size = str(os.path.getsize(file_abs_path))
-            self.__get_keywords(document)
+            self._get_keywords(document)
         except Exception as ex:
             if 'encode' not in str(ex):
                 raise Exception(ex)
@@ -100,25 +93,13 @@ class Metadata:
 
         print()
 
-    def __get_encrypted_status(self, document):
-        """
-        __get_encrypted_status(self, document)
-            Return if document is encrypted or not.
-        Arguments:
-            - document: (pdfFileReader) PDF file.
-        """
+    def _get_encrypted_status(self, document):
         if document.getIsEncrypted() is True:
             self.encrypted = 'Yes'
         else:
             self.encrypted = 'No'
 
-    def __parse_document_info(self, document_info):
-        """
-        __parse_document_info(self, document_info)
-            Parses the document info (metadata).
-        Arguments:
-            - document_info: (pdfFileReader.getDocumentInfo()) Metadata.
-        """
+    def _parse_document_info(self, document_info):
         file_name = document_info.get('/Title', None)
         if file_name:
             self.title = file_name.encode(self.coding)
@@ -149,13 +130,7 @@ class Metadata:
         if modification_date:
             self.modification_date = get_date(modification_date)
 
-    def __get_keywords(self, document):
-        """
-        __get_keywords(self, document)
-            Return keywords if exists.
-        Arguments:
-            - document: (pdfFileReader) PDF file.
-        """
+    def _get_keywords(self, document):
         keywords = document.getXmpMetadata().pdf_keywords
 
         print(keywords)

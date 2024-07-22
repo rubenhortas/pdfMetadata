@@ -6,9 +6,9 @@ class LogCsv(Log):
     def __init__(self, name):
         super(LogCsv, self).__init__(name, '.csv', ',')
 
-        self.__write_header()
+        self._write_header()
 
-    def __write_header(self):
+    def _write_header(self):
         try:
             f_log = open(self.file_name, 'w')
             f_log.write('#File name, Path, Title, Author, Creator, Subject,'
