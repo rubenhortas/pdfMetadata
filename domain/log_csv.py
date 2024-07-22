@@ -9,11 +9,6 @@ class LogCsv(Log):
         self.__write_header()
 
     def __write_header(self):
-        """
-        __write_header(self)
-            Writes CSV file header.
-        """
-
         try:
             f_log = open(self.file_name, 'w')
             f_log.write('#File name, Path, Title, Author, Creator, Subject,'
