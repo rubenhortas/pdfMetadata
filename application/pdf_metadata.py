@@ -1,18 +1,51 @@
 import os
 from crosscutting.condition_messages import print_error
 from crosscutting.condition_messages import print_exception
+from domain.log_csv import LogCsv
+from domain.log_txt import LogTxt
 from domain.metadata import Metadata
 
 
-def get_metadata(file_path):
+def scan(path: str, analyzed_files: int, total_files: int, log_txt: LogTxt | None = None,
+         log_csv: LogCsv | None = None):
     """
-    get_metadata(file_path)
-        Defined to use the script as a module.
+    scan(path, analyzed_files, total_files, f_log_txt, f_log_csv)
+        Scans an entire directory looking for pdf files to display its metadata.
 
-    Arguments:
-        file_path: (string) Absolute file path.
+    :param path: path: Path to scan.
+    :param analyzed_files: Files analyzed.
+    :param total_files: Total files analyzed.
+    :param log_txt: txt log file.
+    :param log_csv: csv log file.
+    :return: analyzed_files (files with metadata)
+    :return: total_files (total scanned files)
     """
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            total_files += 1
+            file_path = os.path.join(root, file)
+            metadata = get_metadata(file_path)
 
+            if metadata:
+                analyzed_files += 1
+
+                if log_txt:
+                    log_txt.write(metadata)
+
+                if log_csv:
+                    log_csv.write(metadata)
+
+    return analyzed_files, total_files
+
+
+def get_metadata(file_path: str) -> Metadata:
+    """
+     get_metadata(file_path)
+        Gets the metadata from a pdf file.
+
+    :param file_path: Absolute file path.
+    :return: Metadata | None
+    """
     metadata = None
 
     if file_path.lower().endswith('.pdf'):
@@ -25,35 +58,3 @@ def get_metadata(file_path):
         print_error('{0} is not a PDF file.'.format(file_path))
 
     return metadata
-
-
-def scan(path, analyzed_files, total_files, f_log_txt=None, f_log_csv=None):
-    """
-    scan(path, analyzed_files, total_files, f_log_txt, f_log_csv)
-        Scans an entire directory looking for pdf files to display its
-        metadata.
-    Arguments:
-        path: (string) Target directory for scan.
-        analyzed_files: (integer) Files analyzed.
-        total_files: (integer) Total files analyzed.
-        f_log_txt: (string) txt log file.
-        f_log_csv: (string) csv log file.
-    """
-
-    for root, dirs, files in os.walk(path):
-        for f in files:
-            total_files = total_files + 1
-
-            file_path = os.path.join(root, f)
-
-            metadata = get_metadata(file_path)
-
-            if metadata:
-                analyzed_files = analyzed_files + 1
-
-                if f_log_txt:
-                    f_log_txt.write(metadata)
-                if f_log_csv:
-                    f_log_csv.write(metadata)
-
-    return analyzed_files, total_files
