@@ -37,7 +37,7 @@ class Metadata:
         self.name = os.path.basename(self.absolute_path)
 
         application_messages.print_file_name(self.name)
-        application_messages.print_document_info('Path', self.absolute_path)
+        application_messages.print_field('Path', self.absolute_path)
 
         try:
             file = open(self.absolute_path, 'rb')
@@ -63,40 +63,40 @@ class Metadata:
             Displays the metadata in a nice format.
         """
         if self.title:
-            application_messages.print_document_info('Title', self.title)
+            application_messages.print_field('Title', self.title)
 
         if self.author:
-            application_messages.print_highlighted('Author', self.author)
+            application_messages.print_field_highlighted('Author', self.author)
 
         if self.creator:
-            application_messages.print_document_info('Creator', self.creator)
+            application_messages.print_field('Creator', self.creator)
 
         if self.subject:
-            application_messages.print_document_info('Subject', self.subject)
+            application_messages.print_field('Subject', self.subject)
 
         if self.producer:
-            application_messages.print_document_info('Producer', self.producer)
+            application_messages.print_field('Producer', self.producer)
 
         if self.creation_date:
-            application_messages.print_date('Creation date', self.creation_date)
+            application_messages.print_field('Creation date', self.creation_date)
 
         if self.modification_date:
-            application_messages.print_date('Modification date', self.modification_date)
+            application_messages.print_field('Modification date', self.modification_date)
 
         if self.encrypted:
             if self.encrypted == 'Yes':
-                application_messages.print_highlighted('Encrypted', self.encrypted)
+                application_messages.print_field_highlighted('Encrypted', self.encrypted)
             else:
-                application_messages.print_document_info('Encrypted', self.encrypted)
+                application_messages.print_field('Encrypted', self.encrypted)
 
         if self.num_pages:
-            application_messages.print_document_info('Pages', self.num_pages)
+            application_messages.print_field('Pages', self.num_pages)
 
         if self.size:
-            application_messages.print_document_info('Size', '{0} bytes'.format(self.size))
+            application_messages.print_field('Size', '{0} bytes'.format(self.size))
 
         if self.keywords:
-            application_messages.print_document_info('Keywords', self.keywords)
+            application_messages.print_field('Keywords', self.keywords)
 
         print()
 
