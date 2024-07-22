@@ -22,9 +22,8 @@ if __name__ == '__main__':
     interpreter_version = get_interpreter_version()
 
     if interpreter_version == REQUIRED_PYTHON_VERSION:
-
-        parser = argparse.ArgumentParser(prog='pdfMetadata')
-        parser = argparse.ArgumentParser(description='Scan pdf files \
+        parser = argparse.ArgumentParser(prog='pdfMetadata',
+                                         description='Scan pdf files \
                                          looking for their metadata.')
         parser.add_argument('arguments',
                             metavar='ARGUMENTS',
