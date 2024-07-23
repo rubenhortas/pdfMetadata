@@ -45,7 +45,13 @@ class Metadata:
                 document_info = document.getDocumentInfo()
 
                 if document_info:
-                    self._get_document_info(document_info)
+                    self.title = document_info.get('/Title', '')
+                    self.author = document_info.get('/Author', '')
+                    self.creator = document_info.get('/Creator', '')
+                    self.producer = document_info.get('/Producer', '')
+                    self.creation_date = get_date(document_info.get('/CreationDate', ''))
+                    self.modification_date = get_date(document_info.get('/ModDate', ''))
+                    self.subject = document_info.subject
         except UnicodeEncodeError:
             pass
         except Exception:
@@ -93,35 +99,6 @@ class Metadata:
             application_messages.print_field('Keywords', self.keywords)
 
         print()
-
-    def _get_document_info(self, document_info: DocumentInformation) -> None:
-        title = document_info.get('/Title', '')
-        if title:
-            self.title = str(title.encode('UTF-8'))
-
-        author = document_info.get('/Author', '')
-        if author:
-            self.author = str(author.encode(ENCODING))
-
-        creator = document_info.get('/Creator', '')
-        if creator:
-            self.creator = str(creator.encode(ENCODING))
-
-        subject = document_info.subject
-        if subject:
-            self.subject = str(subject.encode(ENCODING))
-
-        producer = document_info.get('/Producer', '')
-        if producer:
-                self.producer = str(producer.encode(ENCODING))
-
-        creation_date = document_info.get('/CreationDate', '')
-        if creation_date:
-            self.creation_date = get_date(creation_date)
-
-        modification_date = document_info.get('/ModDate', '')
-        if modification_date:
-            self.modification_date = get_date(modification_date)
 
     def _get_keywords(self, document: PdfFileReader) -> None:
         keywords = document.getXmpMetadata().pdf_keywords
