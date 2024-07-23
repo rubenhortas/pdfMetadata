@@ -52,8 +52,8 @@ def get_metadata(file_path: str) -> Metadata:
         try:
             metadata = Metadata(file_path)
             metadata.print_info()
-        except Exception as ex:
-            print_exception(ex)
+        except Exception as e:
+            print_exception(str(e))
     else:
         print_error('{0} is not a PDF file.'.format(file_path))
 

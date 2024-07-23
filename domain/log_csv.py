@@ -16,8 +16,8 @@ class LogCsv(Log):
                         ' Producer, Creation date, Modification date,'
                         ' Encrypted, Pages, Size, Keywords\n')
             f_log.close()
-        except Exception as ex:
-            print_exception(ex)
+        except Exception as e:
+            print_exception(str(e))
 
     def write(self, metadata: Metadata) -> None:
         try:
@@ -86,5 +86,5 @@ class LogCsv(Log):
             f_log.write('\n')
             f_log.close()
 
-        except Exception as ex:
-            print_exception(ex)
+        except Exception as e:
+            print_exception(str(e))

@@ -50,5 +50,5 @@ class LogTxt(Log):
 
             f_log.write('\n')
             f_log.close()
-        except Exception as ex:
-            print_exception(ex)
+        except Exception as e:
+            print_exception(str(e))
