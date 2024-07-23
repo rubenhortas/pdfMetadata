@@ -26,35 +26,30 @@ class Metadata:
     keywords: str = None
 
     def __init__(self, file_abs_path):
-        try:
-            self.file_absolute_path = file_abs_path
-            self.file_name = os.path.basename(file_abs_path)
+        self.file_absolute_path = file_abs_path
+        self.file_name = os.path.basename(file_abs_path)
 
-            application_messages.print_file_name(self.file_name)
-            application_messages.print_field('Path', self.file_absolute_path)
+        application_messages.print_file_name(self.file_name)
+        application_messages.print_field('Path', self.file_absolute_path)
 
-            with open(file_abs_path, 'r') as file:
-                document = PdfFileReader(file, strict=False)
+        with open(file_abs_path, 'r') as file:
+            document = PdfFileReader(file, strict=False)
 
-                self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
-                self.num_pages = str(document.getNumPages())
-                self.size = str(os.path.getsize(file_abs_path))
-                self.keywords = document.getXmpMetadata().pdf_keywords
+            self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
+            self.num_pages = str(document.getNumPages())
+            self.size = str(os.path.getsize(file_abs_path))
+            self.keywords = document.getXmpMetadata().pdf_keywords
 
-                document_info = document.getDocumentInfo()
+            document_info = document.getDocumentInfo()
 
-                if document_info:
-                    self.title = document_info.get('/Title', '')
-                    self.author = document_info.get('/Author', '')
-                    self.creator = document_info.get('/Creator', '')
-                    self.producer = document_info.get('/Producer', '')
-                    self.creation_date = get_date(document_info.get('/CreationDate', ''))
-                    self.modification_date = get_date(document_info.get('/ModDate', ''))
-                    self.subject = document_info.subject
-        except UnicodeEncodeError:
-            pass
-        except Exception:
-            raise Exception
+            if document_info:
+                self.title = document_info.get('/Title', '')
+                self.author = document_info.get('/Author', '')
+                self.creator = document_info.get('/Creator', '')
+                self.producer = document_info.get('/Producer', '')
+                self.creation_date = get_date(document_info.get('/CreationDate', ''))
+                self.modification_date = get_date(document_info.get('/ModDate', ''))
+                self.subject = document_info.subject
 
     def print_info(self) -> None:
         """
