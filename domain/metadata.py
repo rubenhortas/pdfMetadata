@@ -26,27 +26,29 @@ class Metadata:
     keywords = None
 
     def __init__(self, file_abs_path):
-        self.absolute_path = file_abs_path
-        self.name = os.path.basename(self.absolute_path)
-
-        application_messages.print_file_name(self.name)
-        application_messages.print_field('Path', self.absolute_path)
-
         try:
-            file = open(self.absolute_path, 'rb')
-            document = PdfFileReader(file, strict=False)
-            document_info = document.getDocumentInfo()
+            self.absolute_path = file_abs_path
+            self.name = os.path.basename(self.absolute_path)
 
-            if document_info:
-                self._parse_document_info(document_info)
+            application_messages.print_file_name(self.name)
+            application_messages.print_field('Path', self.absolute_path)
 
-            self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
-            self.num_pages = str(document.getNumPages())
-            self.size = str(os.path.getsize(file_abs_path))
-            self._get_keywords(document)
-        except Exception as ex:
-            if 'encode' not in str(ex):
-                raise Exception(ex)
+            with open(file_abs_path, 'r') as file:
+                document = PdfFileReader(file, strict=False)
+
+                self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
+                self.num_pages = str(document.getNumPages())
+                self.size = str(os.path.getsize(file_abs_path))
+                self._get_keywords(document)
+
+                document_info = document.getDocumentInfo()
+
+                if document_info:
+                    self._get_document_info(document_info)
+        except UnicodeEncodeError:
+            pass
+        except Exception:
+            raise Exception
 
     def print_info(self):
         """
@@ -91,10 +93,10 @@ class Metadata:
 
         print()
 
-    def _parse_document_info(self, document_info):
-        file_name = document_info.get('/Title', None)
-        if file_name:
-            self.title = file_name.encode(ENCODING)
+    def _get_document_info(self, document_info):
+        title = document_info.get('/Title', None)
+        if title:
+            self.title = title.encode(ENCODING)
 
         author = document_info.get('/Author', None)
         if author:
