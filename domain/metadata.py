@@ -1,9 +1,10 @@
 import os
+
 from PyPDF2 import PdfFileReader
 
 from crosscutting.constants import ENCODING
-from presentation import application_messages
 from domain.utils.date_utils import get_date
+from presentation import application_messages
 
 
 class Metadata:
@@ -11,19 +12,19 @@ class Metadata:
     Class Metadata
         Data and operations relatives to the pdf file.
     """
-    absolute_path = None
-    name = None
-    title = None
-    author = None
-    creator = None
-    subject = None
-    producer = None
-    creation_date = None
-    modification_date = None
-    encrypted = None
-    num_pages = None
-    size = None
-    keywords = None
+    absolute_path: str = None
+    name: str = None
+    title: str = None
+    author: str = None
+    creator: str = None
+    subject: str = None
+    producer: str = None
+    creation_date: str = None
+    modification_date: str = None
+    encrypted: str = None
+    num_pages: str = None
+    size: str = None
+    keywords: str = None
 
     def __init__(self, file_abs_path):
         try:
@@ -50,7 +51,7 @@ class Metadata:
         except Exception:
             raise Exception
 
-    def print_info(self):
+    def print_info(self) -> None:
         """
         print_info(self)
             Displays the metadata in a nice format.
@@ -93,7 +94,7 @@ class Metadata:
 
         print()
 
-    def _get_document_info(self, document_info):
+    def _get_document_info(self, document_info) -> None:
         title = document_info.get('/Title', None)
         if title:
             self.title = title.encode(ENCODING)
@@ -124,7 +125,7 @@ class Metadata:
         if modification_date:
             self.modification_date = get_date(modification_date)
 
-    def _get_keywords(self, document):
+    def _get_keywords(self, document: PdfFileReader) -> None:
         keywords = document.getXmpMetadata().pdf_keywords
 
         if keywords:
