@@ -1,6 +1,6 @@
 import os
 
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfFileReader, DocumentInformation
 
 from crosscutting.constants import ENCODING
 from domain.utils.date_utils import get_date
@@ -94,34 +94,32 @@ class Metadata:
 
         print()
 
-    def _get_document_info(self, document_info) -> None:
-        title = document_info.get('/Title', None)
+    def _get_document_info(self, document_info: DocumentInformation) -> None:
+        title = document_info.get('/Title', '')
         if title:
-            self.title = title.encode(ENCODING)
+            self.title = str(title.encode('UTF-8'))
 
-        author = document_info.get('/Author', None)
+        author = document_info.get('/Author', '')
         if author:
-            self.author = author.encode(ENCODING)
+            self.author = str(author.encode(ENCODING))
 
-        creator = document_info.get('/Creator', None)
+        creator = document_info.get('/Creator', '')
         if creator:
-            self.creator = creator.encode(ENCODING)
+            self.creator = str(creator.encode(ENCODING))
 
         subject = document_info.subject
-        if subject and (subject != ''):
-            self.subject = subject.encode(ENCODING)
+        if subject:
+            self.subject = str(subject.encode(ENCODING))
 
-        producer = document_info.get('/Producer', None)
+        producer = document_info.get('/Producer', '')
         if producer:
-            if producer != '':
-                producer = producer.strip()
-                self.producer = producer.encode(ENCODING)
+                self.producer = str(producer.encode(ENCODING))
 
-        creation_date = document_info.get('/CreationDate', None)
+        creation_date = document_info.get('/CreationDate', '')
         if creation_date:
             self.creation_date = get_date(creation_date)
 
-        modification_date = document_info.get('/ModDate', None)
+        modification_date = document_info.get('/ModDate', '')
         if modification_date:
             self.modification_date = get_date(modification_date)
 
