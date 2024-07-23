@@ -1,14 +1,15 @@
+from domain.metadata import Metadata
 from presentation.condition_messages import print_exception
 from log import Log
 
 
 class LogCsv(Log):
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         super(LogCsv, self).__init__(name, '.csv', ',')
 
         self._write_header()
 
-    def _write_header(self):
+    def _write_header(self) -> None:
         try:
             f_log = open(self.file_name, 'w')
             f_log.write('#File name, Path, Title, Author, Creator, Subject,'
@@ -18,7 +19,7 @@ class LogCsv(Log):
         except Exception as ex:
             print_exception(ex)
 
-    def write(self, metadata):
+    def write(self, metadata: Metadata) -> None:
         try:
             f_log = open(self.file_name, 'a+')
             if metadata.name:
