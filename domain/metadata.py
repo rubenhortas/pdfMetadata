@@ -125,7 +125,5 @@ class Metadata:
     def _get_keywords(self, document):
         keywords = document.getXmpMetadata().pdf_keywords
 
-        print(keywords)
-
         if keywords:
             self.keywords = keywords.encode(ENCODING).replace(',', ';')
