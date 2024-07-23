@@ -10,11 +10,11 @@ class LogTxt(Log):
     def write(self, metadata: Metadata) -> None:
         try:
             f_log = open(self.file_name, 'a+')
-            if metadata.name:
-                f_log.write('File: {0}\n'.format(metadata.name))
+            if metadata.file_name:
+                f_log.write('File: {0}\n'.format(metadata.file_name))
 
-            if metadata.absolute_path:
-                f_log.write('Path: {0}\n'.format(metadata.absolute_path))
+            if metadata.file_absolute_path:
+                f_log.write('Path: {0}\n'.format(metadata.file_absolute_path))
 
             if metadata.title:
                 f_log.write('Title: {0}\n'.format(metadata.title))

@@ -22,13 +22,13 @@ class LogCsv(Log):
     def write(self, metadata: Metadata) -> None:
         try:
             f_log = open(self.file_name, 'a+')
-            if metadata.name:
-                f_log.write(metadata.name)
+            if metadata.file_name:
+                f_log.write(metadata.file_name)
 
             f_log.write(self.field_separator)
 
-            if metadata.absolute_path:
-                f_log.write(metadata.absolute_path)
+            if metadata.file_absolute_path:
+                f_log.write(metadata.file_absolute_path)
 
             f_log.write(self.field_separator)
 
