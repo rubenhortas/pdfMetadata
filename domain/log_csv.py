@@ -4,8 +4,11 @@ from log import Log
 
 
 class LogCsv(Log):
-    def __init__(self, name: str) -> None:
-        super(LogCsv, self).__init__(name, '.csv', ',')
+    extension = 'csv'
+    _delimiter = ','
+
+    def __init__(self, file_name: str) -> None:
+        super(LogCsv, self).__init__(file_name)
 
         self._write_header()
 
@@ -25,60 +28,60 @@ class LogCsv(Log):
             if metadata.file_name:
                 f_log.write(metadata.file_name)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.file_absolute_path:
                 f_log.write(metadata.file_absolute_path)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.title:
                 f_log.write(metadata.title)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.author:
                 f_log.write(metadata.author)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.creator:
                 f_log.write(metadata.creator)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.subject:
                 f_log.write(metadata.subject)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.producer:
                 f_log.write(metadata.producer)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.creation_date:
                 f_log.write(metadata.creation_date)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.modification_date:
                 f_log.write(metadata.modification_date)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             f_log.write(metadata.encrypted)
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.num_pages:
                 f_log.write(metadata.num_pages)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.size:
                 f_log.write(metadata.size)
 
-            f_log.write(self.field_separator)
+            f_log.write(self._delimiter)
 
             if metadata.keywords:
                 f_log.write(metadata.keywords)

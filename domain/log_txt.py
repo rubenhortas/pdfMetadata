@@ -4,8 +4,10 @@ from log import Log
 
 
 class LogTxt(Log):
-    def __init__(self, name: str) -> None:
-        super(LogTxt, self).__init__(name, '.txt', '\n')
+    extension = 'txt'
+
+    def __init__(self, file_name: str) -> None:
+        super(LogTxt, self).__init__(file_name)
 
     def write(self, metadata: Metadata) -> None:
         try:
