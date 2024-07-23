@@ -35,14 +35,12 @@ class Metadata:
         try:
             file = open(self.absolute_path, 'rb')
             document = PdfFileReader(file, strict=False)
-
-            self._get_encrypted_status(document)
-
             document_info = document.getDocumentInfo()
 
             if document_info:
                 self._parse_document_info(document_info)
 
+            self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
             self.num_pages = str(document.getNumPages())
             self.size = str(os.path.getsize(file_abs_path))
             self._get_keywords(document)
@@ -92,12 +90,6 @@ class Metadata:
             application_messages.print_field('Keywords', self.keywords)
 
         print()
-
-    def _get_encrypted_status(self, document):
-        if document.getIsEncrypted() is True:
-            self.encrypted = 'Yes'
-        else:
-            self.encrypted = 'No'
 
     def _parse_document_info(self, document_info):
         file_name = document_info.get('/Title', None)
