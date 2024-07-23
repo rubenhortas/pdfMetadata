@@ -1,6 +1,7 @@
 import os
 from PyPDF2 import PdfFileReader
 
+from crosscutting.constants import ENCODING
 from presentation import application_messages
 from domain.utils.date_utils import get_date
 
@@ -23,7 +24,6 @@ class Metadata:
     num_pages = None
     size = None
     keywords = None
-    coding = 'UTF-8'
 
     def __init__(self, file_abs_path):
         self.absolute_path = file_abs_path
@@ -102,25 +102,25 @@ class Metadata:
     def _parse_document_info(self, document_info):
         file_name = document_info.get('/Title', None)
         if file_name:
-            self.title = file_name.encode(self.coding)
+            self.title = file_name.encode(ENCODING)
 
         author = document_info.get('/Author', None)
         if author:
-            self.author = author.encode(self.coding)
+            self.author = author.encode(ENCODING)
 
         creator = document_info.get('/Creator', None)
         if creator:
-            self.creator = creator.encode(self.coding)
+            self.creator = creator.encode(ENCODING)
 
         subject = document_info.subject
         if subject and (subject != ''):
-            self.subject = subject.encode(self.coding)
+            self.subject = subject.encode(ENCODING)
 
         producer = document_info.get('/Producer', None)
         if producer:
             if producer != '':
                 producer = producer.strip()
-                self.producer = producer.encode(self.coding)
+                self.producer = producer.encode(ENCODING)
 
         creation_date = document_info.get('/CreationDate', None)
         if creation_date:
@@ -136,4 +136,4 @@ class Metadata:
         print(keywords)
 
         if keywords:
-            self.keywords = keywords.encode(self.coding).replace(',', ';')
+            self.keywords = keywords.encode(ENCODING).replace(',', ';')
