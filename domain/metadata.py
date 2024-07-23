@@ -1,8 +1,7 @@
 import os
 
-from PyPDF2 import PdfFileReader, DocumentInformation
+from PyPDF2 import PdfFileReader
 
-from crosscutting.constants import ENCODING
 from domain.utils.date_utils import get_date
 from presentation import application_messages
 
@@ -12,8 +11,8 @@ class Metadata:
     Class Metadata
         Data and operations relatives to the pdf file.
     """
-    absolute_path: str = None
-    name: str = None
+    file_absolute_path: str = None
+    file_name: str = None
     title: str = None
     author: str = None
     creator: str = None
@@ -28,11 +27,11 @@ class Metadata:
 
     def __init__(self, file_abs_path):
         try:
-            self.absolute_path = file_abs_path
-            self.name = os.path.basename(self.absolute_path)
+            self.file_absolute_path = file_abs_path
+            self.file_name = os.path.basename(file_abs_path)
 
-            application_messages.print_file_name(self.name)
-            application_messages.print_field('Path', self.absolute_path)
+            application_messages.print_file_name(self.file_name)
+            application_messages.print_field('Path', self.file_absolute_path)
 
             with open(file_abs_path, 'r') as file:
                 document = PdfFileReader(file, strict=False)
@@ -40,7 +39,7 @@ class Metadata:
                 self.encrypted = 'Yes' if document.getIsEncrypted() else 'No'
                 self.num_pages = str(document.getNumPages())
                 self.size = str(os.path.getsize(file_abs_path))
-                self._get_keywords(document)
+                self.keywords = document.getXmpMetadata().pdf_keywords
 
                 document_info = document.getDocumentInfo()
 
@@ -99,9 +98,3 @@ class Metadata:
             application_messages.print_field('Keywords', self.keywords)
 
         print()
-
-    def _get_keywords(self, document: PdfFileReader) -> None:
-        keywords = document.getXmpMetadata().pdf_keywords
-
-        if keywords:
-            self.keywords = keywords.encode(ENCODING).replace(',', ';')
