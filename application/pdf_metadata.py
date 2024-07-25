@@ -3,23 +3,51 @@ import os
 from domain.metadata import Metadata
 
 
-def get_metadata(argument: str) -> list:
-    def get_file_metadata(file: str) -> None:
-        if file.lower().endswith('.pdf'):
-            try:
-                files_metadata.append(Metadata(file))
-            except Exception as e:
-                print(e)
+def get_files(argument: str) -> (list, list):
+    """
+    Returns all the files in the argument.
 
-    files_metadata = []
+    If the argument is a directory, the argument is scanned recursively to get all files included in its subdirectories.
+    The files are separated in two lists, depending on whether they are PDFs or not.
+
+    If the argument is a file, the argument is returned included in its corresponding list.
+
+    :param argument: file or directory.
+    :return: (pdf_files, non_pdf_files)
+    """
+
+    def _sort_out_file(file: str) -> None:
+        if file.lower().endswith('.pdf'):
+            pdf_files.append(file)
+        else:
+            non_pdf_files.append(file)
+
+    non_pdf_files = []
+    pdf_files = []
 
     if os.path.isdir(argument):
         for root, _, files in os.walk(argument):
             for file in files:
                 file_absolute_path = os.path.join(root, file)
-                get_file_metadata(file_absolute_path)
+
+                if os.path.isfile(file_absolute_path):
+                    _sort_out_file(file_absolute_path)
 
     elif os.path.isfile(argument):
-        get_file_metadata(argument)
+        _sort_out_file(argument)
 
-    return files_metadata
+    return pdf_files, non_pdf_files
+
+
+def get_metadata(pdf_files: list) -> (list, list):
+    metadata = []
+    errors = []
+
+    for pdf_file in pdf_files:
+        # noinspection PyBroadException
+        try:
+            metadata.append(Metadata(pdf_file))
+        except Exception:
+            errors.append(pdf_file)
+
+    return metadata, errors
