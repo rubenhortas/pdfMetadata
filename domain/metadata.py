@@ -28,8 +28,7 @@ class Metadata:
         self.file_abs_path: str = file
         self.file_name: str = os.path.basename(file)
 
-        fd = open(self.file_abs_path, "rb")
-        document = PdfReader(fd, strict=False)
+        document = PdfReader(self.file_abs_path, False)
 
         self.encrypted = 'Yes' if document.is_encrypted else 'No'
         self.num_pages = str(len(document.pages))
