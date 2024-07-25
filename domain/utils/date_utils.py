@@ -7,7 +7,7 @@ _FORMAT_3 = re.compile(r'^([a-z]{3} ){2}\d{2} (\d{2}:){2}\d{2} \d{4}',
                        re.IGNORECASE)  # Format:  Mon Mar 14 13:55:36 2005
 
 
-def get_date(date: str) -> str:
+def get_date(date: str | None) -> str | None:
     """
     get_date(date)
         Formats a date.
@@ -15,17 +15,20 @@ def get_date(date: str) -> str:
     :param date: input date
     :return: string formatted date
     """
-    if _FORMAT_1.match(date):
-        date_format1 = _FORMAT_1.match(date).group(0)
-        d = datetime.strptime(date_format1, 'D:%Y%m%d%H%M%S')
-        return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
+    if date:
+        if _FORMAT_1.match(date):
+            date_format1 = _FORMAT_1.match(date).group(0)
+            d = datetime.strptime(date_format1, 'D:%Y%m%d%H%M%S')
+            return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
 
-    if _FORMAT_2.match(date):
-        d = datetime.strptime(date, '%m/%d/%Y %H:%M:%S')
-        return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
+        if _FORMAT_2.match(date):
+            d = datetime.strptime(date, '%m/%d/%Y %H:%M:%S')
+            return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
 
-    if _FORMAT_3.match(date):
-        d = datetime.strptime(date, '%a %b %d %H:%M:%S %Y')
-        return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
+        if _FORMAT_3.match(date):
+            d = datetime.strptime(date, '%a %b %d %H:%M:%S %Y')
+            return d.strftime('%H:%M:%S %d/%b/%Y (%a)')
 
-    return date
+        return date
+
+    return None
