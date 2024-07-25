@@ -1,6 +1,6 @@
+from domain.log import Log
 from domain.metadata import Metadata
-from presentation.condition_messages import print_exception
-from log import Log
+from presentation.messages.condition_messages import print_exception
 
 
 class LogTxt(Log):
@@ -15,8 +15,8 @@ class LogTxt(Log):
             if metadata.file_name:
                 f_log.write('File: {0}\n'.format(metadata.file_name))
 
-            if metadata.file_absolute_path:
-                f_log.write('Path: {0}\n'.format(metadata.file_absolute_path))
+            if metadata.file_abs_path:
+                f_log.write('Path: {0}\n'.format(metadata.file_abs_path))
 
             if metadata.title:
                 f_log.write('Title: {0}\n'.format(metadata.title))

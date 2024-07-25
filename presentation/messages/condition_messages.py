@@ -1,4 +1,4 @@
-from presentation.tag import Tag
+from presentation.messages.tag import Tag
 
 
 def print_error(msg: str) -> None:

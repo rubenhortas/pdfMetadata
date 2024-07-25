@@ -1,13 +1,12 @@
 import argparse
-import os
 import signal
 
 from application.pdf_metadata import get_metadata
-from application.pdf_metadata import scan
 from crosscutting.utils.python_utils import handle_sigint
 from crosscutting.utils.python_utils import get_interpreter_version
-from presentation.condition_messages import print_error
-from presentation.condition_messages import print_info
+from domain.metadata import Metadata
+from presentation.cli import print_metadata
+from presentation.messages.condition_messages import print_error, print_info
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
@@ -27,42 +26,25 @@ if __name__ == '__main__':
         parser.add_argument('--csv', metavar='csv file', nargs='?', help='Saves the output into a csv file.')
         args = parser.parse_args()
 
-        log_txt = None
-        log_csv = None
-        total_files = 0
-        analyzed_files = 0
-
         if args.log:
             log_txt = LogTxt(args.log)
 
         if args.csv:
             log_csv = LogCsv(args.csv)
 
+        files_metadata = []
+
         for argument in args.arguments:
-            if os.path.isfile(argument):
-                total_files = total_files + 1
-                metadata = get_metadata(argument)
+            print_info(f"Scanning {argument}...")
+            files_metadata.extend(get_metadata(argument))
 
-                if metadata:
-                    analyzed_files = analyzed_files + 1
+        if files_metadata:
+            # TODO: logs
+            file_metadata: Metadata
+            for file_metadata in files_metadata:
+                print_metadata(file_metadata)
 
-                    if log_txt:
-                        log_txt.write(metadata)
-
-                    if log_csv:
-                        log_csv.write(metadata)
-            elif os.path.isdir(argument):
-                analyzed_files, total_files = scan(argument, analyzed_files, total_files, log_txt, log_csv)
-            else:
-                print_error('{0} is not a valid PDF file or a existing directory.'.format(argument))
-
-        if log_txt:
-            print_info('Saved to: {0}'.format(log_txt.file_name))
-
-        if log_csv:
-            print_info('Saved to: {0}'.format(log_csv.file_name))
-
-        print_info('Analyzed files: {0}/{1}'.format(analyzed_files, total_files))
+        print_info('Done')
     else:
         print_error('Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
         exit(0)

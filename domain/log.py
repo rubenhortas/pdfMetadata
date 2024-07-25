@@ -1,3 +1,6 @@
+from typing import TextIO
+
+
 class Log(object):
     """
     Class Log

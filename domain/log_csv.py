@@ -1,11 +1,11 @@
+from domain.log import Log
 from domain.metadata import Metadata
-from presentation.condition_messages import print_exception
-from log import Log
+from presentation.messages.condition_messages import print_exception
 
 
 class LogCsv(Log):
-    extension = 'csv'
-    _delimiter = ','
+    extension: str = 'csv'
+    _delimiter: str = ','
 
     def __init__(self, file_name: str) -> None:
         super(LogCsv, self).__init__(file_name)
@@ -30,8 +30,8 @@ class LogCsv(Log):
 
             f_log.write(self._delimiter)
 
-            if metadata.file_absolute_path:
-                f_log.write(metadata.file_absolute_path)
+            if metadata.file_abs_path:
+                f_log.write(metadata.file_abs_path)
 
             f_log.write(self._delimiter)
 

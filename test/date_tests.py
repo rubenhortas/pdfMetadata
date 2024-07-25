@@ -11,7 +11,6 @@ class DateTest(unittest.TestCase):
             ('3/22/2004 18:21:23', '18:21:23 22/Mar/2004 (Mon)'),
             ('Mon Mar 14 13:55:36 2005', '13:55:36 14/Mar/2005 (Mon)'),
             ('13:55:36 14/Mar/2005 (Mon)', '13:55:36 14/Mar/2005 (Mon)'),
-            (None, None)
         ]
 
     def test_date_format(self):

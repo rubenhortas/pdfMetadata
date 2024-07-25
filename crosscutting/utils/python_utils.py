@@ -1,5 +1,5 @@
 from sys import version_info
-from presentation.condition_messages import print_info
+from presentation.messages.condition_messages import print_info
 
 
 def get_interpreter_version() -> str:
