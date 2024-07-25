@@ -6,7 +6,7 @@ from crosscutting.utils.python_utils import handle_sigint
 from crosscutting.utils.python_utils import get_interpreter_version
 from domain.metadata import Metadata
 from presentation.cli import print_metadata
-from presentation.messages.condition_messages import print_error, print_info
+from presentation.messages.condition_messages import print_error, print_info, print_exception
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from domain.log_csv import LogCsv
 from domain.log_txt import LogTxt
@@ -32,19 +32,22 @@ if __name__ == '__main__':
         if args.csv:
             log_csv = LogCsv(args.csv)
 
-        files_metadata = []
+        try:
+            files_metadata = []
 
-        for argument in args.arguments:
-            print_info(f"Scanning {argument}...")
-            files_metadata.extend(get_metadata(argument))
+            for argument in args.arguments:
+                print_info(f"Scanning {argument}...")
+                files_metadata.extend(get_metadata(argument))
 
-        if files_metadata:
-            # TODO: logs
-            file_metadata: Metadata
-            for file_metadata in files_metadata:
-                print_metadata(file_metadata)
+            if files_metadata:
+                # TODO: logs
+                file_metadata: Metadata
+                for file_metadata in files_metadata:
+                    print_metadata(file_metadata)
 
-        print_info('Done')
+            print_info('Done')
+        except Exception as e:
+            print_exception(str(e))
     else:
         print_error('Requires Python {0}'.format(REQUIRED_PYTHON_VERSION))
         exit(0)
