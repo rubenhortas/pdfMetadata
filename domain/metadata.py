@@ -24,7 +24,7 @@ class Metadata:
     size: str = None
     keywords: str = None
 
-    def __init__(self, file):
+    def __init__(self, file: str):
         self.file_abs_path: str = file
         self.file_name: str = os.path.basename(file)
 
