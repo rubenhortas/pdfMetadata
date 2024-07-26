@@ -24,19 +24,10 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         try:
-            print_info('Searching PDF files...')
-
-            non_pdf_files = []
-            pdf_files = []
-
-            for argument in args.arguments:
-                arg_pdfs, arg_rf = get_files(argument)
-
-                pdf_files.extend(arg_pdfs)
-                non_pdf_files.extend(arg_rf)
+            print_info('Getting PDF files...')
+            pdf_files, non_pdf_files = get_files(args.arguments)
 
             print_info('Getting metadata...')
-
             pdf_files_metadata, pdf_files_errors = get_metadata(pdf_files)
 
             for file_metadata in pdf_files_metadata:

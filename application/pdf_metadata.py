@@ -3,16 +3,16 @@ import os
 from domain.metadata import Metadata
 
 
-def get_files(argument: str) -> (list, list):
+def get_files(paths: list) -> (list, list):
     """
-    Returns all the files in the argument.
+    Returns all the files in the arguments.
 
     If the argument is a directory, the argument is scanned recursively to get all files included in its subdirectories.
     The files are separated in two lists, depending on whether they are PDFs or not.
 
     If the argument is a file, the argument is returned included in its corresponding list.
 
-    :param argument: file or directory.
+    :param paths: file or directory.
     :return: (pdf_files, non_pdf_files)
     """
 
@@ -25,16 +25,17 @@ def get_files(argument: str) -> (list, list):
     non_pdf_files = []
     pdf_files = []
 
-    if os.path.isdir(argument):
-        for root, _, files in os.walk(argument):
-            for file in files:
-                file_absolute_path = os.path.join(root, file)
+    for path in paths:
+        if os.path.isdir(path):
+            for root, _, files in os.walk(path):
+                for file in files:
+                    file_absolute_path = os.path.join(root, file)
 
-                if os.path.isfile(file_absolute_path):
-                    _sort_out_file(file_absolute_path)
+                    if os.path.isfile(file_absolute_path):
+                        _sort_out_file(str(file_absolute_path))
 
-    elif os.path.isfile(argument):
-        _sort_out_file(argument)
+        elif os.path.isfile(path):
+            _sort_out_file(path)
 
     return pdf_files, non_pdf_files
 
