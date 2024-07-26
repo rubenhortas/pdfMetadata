@@ -55,7 +55,7 @@ if __name__ == '__main__':
                 print(', '.join(pdf_files_errors))
 
             if args.show_all and non_pdf_files:
-                print("Not scanned files: ", end='')
+                print("Regular files not scanned: ", end='')
                 print(', '.join(non_pdf_files))
 
             print_info('Done')
