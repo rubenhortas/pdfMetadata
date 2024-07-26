@@ -1,7 +1,7 @@
 import argparse
 import signal
 
-from application.pdf_metadata import get_files, get_metadata
+from application.pdfMetadata_service import get_files, get_metadata
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from crosscutting.utils.python_utils import get_interpreter_version
 from crosscutting.utils.python_utils import handle_sigint
