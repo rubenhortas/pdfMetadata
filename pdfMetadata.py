@@ -30,6 +30,7 @@ if __name__ == '__main__':
             print_info('Getting metadata...')
             pdf_files_metadata, pdf_files_errors = get_metadata(pdf_files)
 
+            print_info('Metadata:\n')
             for file_metadata in pdf_files_metadata:
                 print_metadata(file_metadata)
 
@@ -42,14 +43,14 @@ if __name__ == '__main__':
                 # log_csv = LogCsv(args.csv)
 
             if pdf_files_errors:
-                print("PDFs not scanned: ", end='')
+                print('PDFs not scanned: ', end='')
                 print(', '.join(pdf_files_errors))
 
             if args.show_all and non_pdf_files:
-                print("Regular files not scanned: ", end='')
+                print('Regular files not scanned: ', end='')
                 print(', '.join(non_pdf_files))
 
-            print_info('Done')
+            print_info('\nDone')
         except Exception as e:
             print_exception(str(e))
     else:
