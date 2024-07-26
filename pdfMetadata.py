@@ -24,7 +24,7 @@ if __name__ == '__main__':
         args = parser.parse_args()
 
         try:
-            print_info('Getting PDF files...')
+            print_info('\nGetting PDF files...')
             pdf_files, non_pdf_files = get_files(args.arguments)
 
             print_info('Getting metadata...')
@@ -50,7 +50,12 @@ if __name__ == '__main__':
                 print('Regular files not scanned: ', end='')
                 print(', '.join(non_pdf_files))
 
-            print_info('\nDone')
+            pdf_num = len(pdf_files)
+            total_files = pdf_num + len(non_pdf_files)
+
+            print_info(f"PDFs found: {pdf_num}/{total_files} files")
+            print_info(f"PDFs processed: {pdf_num - len(pdf_files_errors)}/{pdf_num}")
+            print_info('Done')
         except Exception as e:
             print_exception(str(e))
     else:
