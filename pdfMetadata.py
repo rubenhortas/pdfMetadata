@@ -35,7 +35,7 @@ if __name__ == '__main__':
                 pdf_files.extend(arg_pdfs)
                 non_pdf_files.extend(arg_rf)
 
-            print_info('Searching metadata...')
+            print_info('Getting metadata...')
 
             pdf_files_metadata, pdf_files_errors = get_metadata(pdf_files)
 
