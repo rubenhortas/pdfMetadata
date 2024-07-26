@@ -1,7 +1,7 @@
 import os
 
 from PyPDF2 import PdfReader
-from PyPDF2.errors import PdfReadError, DependencyError
+from PyPDF2.errors import DependencyError
 
 from domain.utils.date_utils import get_date
 
