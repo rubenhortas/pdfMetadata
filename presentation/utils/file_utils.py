@@ -1,6 +1,8 @@
 from functools import wraps
 from typing import Callable
 
+from presentation.messages.condition_messages import print_error
+
 
 def write_file(func: Callable) -> Callable:
     """
@@ -8,16 +10,14 @@ def write_file(func: Callable) -> Callable:
     """
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(file: str, lines: list):
         try:
-            return func(*args, **kwargs)
+            return func(file, lines)
         except FileNotFoundError as file_not_found_error:
-            print(f"'{file_not_found_error.filename}' no such file or directory")
+            print_error(f"'{file_not_found_error.filename}' no such file or directory")
         except PermissionError:
-            # print(f"Permission denied: '{args.txt}'")
-            print(f"Permission denied: ")
+            print_error(f"Permission denied: '{file}'")
         except OSError as os_error:
-            # print(f"'{args.txt}' OSError: {os_error}")
-            print(f"OSError: {os_error}")
+            print_error(f"'{file}' OSError: {os_error}")
 
     return wrapper
