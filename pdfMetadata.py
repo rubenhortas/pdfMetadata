@@ -1,11 +1,11 @@
 import argparse
 import signal
 
-from application.pdfMetadata_service import get_files, get_metadata, write_log_txt, write_log_csv
+from application.pdfMetadata_service import get_files, get_metadata
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from crosscutting.utils.python_utils import get_interpreter_version
 from crosscutting.utils.python_utils import handle_sigint
-from presentation.cli import print_metadata
+from presentation.cli import print_metadata, write_log_txt
 from presentation.messages.condition_messages import print_error, print_info, print_exception
 from presentation.utils.screen import clear_screen
 
@@ -35,24 +35,10 @@ if __name__ == '__main__':
                 print_metadata(file_metadata)
 
             if args.txt:
-                try:
-                    write_log_txt(args.txt, pdf_files_metadata)
-                except FileNotFoundError as file_not_found_error:
-                    print(f"'{file_not_found_error.filename}' no such file or directory")
-                except PermissionError:
-                    print(f"Permission denied: '{args.txt}'")
-                except OSError as os_error:
-                    print(f"'{args.txt}' OSError: {os_error}")
+                write_log_txt(args.txt, pdf_files_metadata)
 
             if args.csv:
-                try:
-                    write_log_csv(args.csv, pdf_files_metadata)
-                except FileNotFoundError as file_not_found_error:
-                    print(f"'{file_not_found_error.filename}' no such file or directory")
-                except PermissionError:
-                    print(f"Permission denied: '{args.txt}'")
-                except OSError as os_error:
-                    print(f"'{args.txt}' OSError: {os_error}")
+                write_log_txt(args.csv, pdf_files_metadata)
 
             if pdf_files_errors:
                 print('PDFs not scanned: ', end='')

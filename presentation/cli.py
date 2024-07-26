@@ -1,6 +1,8 @@
 from colorama import Style, Fore
 
+from application import pdfMetadata_service
 from domain.metadata import Metadata
+from presentation.utils.file_utils import write_file
 
 
 def print_metadata(metadata: Metadata) -> None:
@@ -28,6 +30,16 @@ def print_metadata(metadata: Metadata) -> None:
     _print_field('Keywords', metadata.keywords)
 
     print()
+
+
+@write_file
+def write_log_txt(file: str, pdf_files_metadata: list) -> None:
+    pdfMetadata_service.write_log_txt(file, pdf_files_metadata)
+
+
+@write_file
+def write_log_csv(file: str, pdf_files_metadata: list) -> None:
+    pdfMetadata_service.write_log_csv(file, pdf_files_metadata)
 
 
 def _print_file_name(name: str) -> None:
