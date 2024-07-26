@@ -1,7 +1,7 @@
 import argparse
 import signal
 
-from application.pdfMetadata_service import get_files, get_metadata
+from application.pdfMetadata_service import get_files, get_metadata, write_log_txt, write_log_csv
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from crosscutting.utils.python_utils import get_interpreter_version
 from crosscutting.utils.python_utils import handle_sigint
@@ -16,9 +16,9 @@ if __name__ == '__main__':
     if get_interpreter_version() == REQUIRED_PYTHON_VERSION:
         parser = argparse.ArgumentParser(prog='pdfMetadata', description='Scan pdf files looking for their metadata.')
         parser.add_argument('arguments', metavar='ARGUMENTS', nargs='+', help='file[s] or path[s] to scan pdf files')
-        parser.add_argument('-t', '--txt', metavar='log_file.txt', nargs=1,
+        parser.add_argument('-t', '--txt', metavar='log_file.txt', nargs='?',
                             help='Saves the output into a plain text file.')
-        parser.add_argument('-c', '--csv', metavar='log_file.csv', nargs=1, help='Saves the output into a csv file.')
+        parser.add_argument('-c', '--csv', metavar='log_file.csv', nargs='?', help='Saves the output into a csv file.')
         parser.add_argument('-a', '--show-all', default=False, action='store_true',
                             help='Shows scanned non-PDF files..')
         args = parser.parse_args()
@@ -35,12 +35,24 @@ if __name__ == '__main__':
                 print_metadata(file_metadata)
 
             if args.txt:
-                print('TODO Log.txt')  # TODO
-                # log_txt = LogTxt(args.txt)
+                try:
+                    write_log_txt(args.txt, pdf_files_metadata)
+                except FileNotFoundError as file_not_found_error:
+                    print(f"'{file_not_found_error.filename}' no such file or directory")
+                except PermissionError:
+                    print(f"Permission denied: '{args.txt}'")
+                except OSError as os_error:
+                    print(f"'{args.txt}' OSError: {os_error}")
 
             if args.csv:
-                print('TODO Log.csv')  # TODO
-                # log_csv = LogCsv(args.csv)
+                try:
+                    write_log_csv(args.csv, pdf_files_metadata)
+                except FileNotFoundError as file_not_found_error:
+                    print(f"'{file_not_found_error.filename}' no such file or directory")
+                except PermissionError:
+                    print(f"Permission denied: '{args.txt}'")
+                except OSError as os_error:
+                    print(f"'{args.txt}' OSError: {os_error}")
 
             if pdf_files_errors:
                 print('PDFs not scanned: ', end='')

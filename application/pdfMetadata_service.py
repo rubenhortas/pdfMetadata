@@ -55,3 +55,18 @@ def get_metadata(pdf_files: list) -> (list, list):
             errors.append(pdf_file)
 
     return metadata, errors
+
+
+def write_log_txt(file: str, metadata_files: list) -> None:
+    with open(file, 'w') as f:
+        for metadata in metadata_files:
+            f.write(metadata.to_txt())
+
+
+def write_log_csv(file: str, metadata_files: list) -> None:
+    with open(file, 'w') as f:
+        f.write('File, Path, Title, Author, Creator, Subject, Producer, Creation date, Modification date, '
+                'Encrypted, Pages, Size, Keywords\n')
+
+        for metadata in metadata_files:
+            f.write(metadata.to_csv())
