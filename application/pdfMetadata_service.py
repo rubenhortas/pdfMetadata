@@ -37,6 +37,9 @@ def get_files(paths: list) -> (list, list):
         elif os.path.isfile(path):
             _sort_out_file(path)
 
+        else:
+            non_pdf_files.append(path)
+
     return pdf_files, non_pdf_files
 
 
