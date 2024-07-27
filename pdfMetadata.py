@@ -41,9 +41,9 @@ if __name__ == '__main__':
                 thread_log_txt.join()
 
             if args.csv:
-                thread_log_txt = threading.Thread(target=write_log_csv, args=(args.csv, pdf_files_metadata))
-                thread_log_txt.start()
-                thread_log_txt.join()
+                thread_log_csv = threading.Thread(target=write_log_csv, args=(args.csv, pdf_files_metadata))
+                thread_log_csv.start()
+                thread_log_csv.join()
 
             if pdf_files_errors:
                 print('PDFs not scanned: ', end='')
