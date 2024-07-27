@@ -27,7 +27,7 @@ if __name__ == '__main__':
             print_info('\nGetting PDF files...')
             pdf_files, non_pdf_files = get_files(args.arguments)
 
-            print_info('Getting metadata...')
+            print_info('Getting metadata from PDF files...')
             pdf_files_metadata, pdf_files_errors = get_metadata(pdf_files)
 
             print_info('Metadata:\n')
