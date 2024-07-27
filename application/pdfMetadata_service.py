@@ -1,4 +1,6 @@
+import multiprocessing
 import os
+from multiprocessing import Pool
 
 from domain.metadata import Metadata
 
@@ -43,16 +45,18 @@ def get_files(paths: list) -> (list, list):
     return pdf_files, non_pdf_files
 
 
-def get_metadata(pdf_files: list) -> (list, list):
+def get_metadata(pdf_files: list):
+    with Pool(processes=multiprocessing.cpu_count()) as pool:
+        results = pool.map(_get_metadata, pdf_files)
+
     metadata = []
     errors = []
 
-    for pdf_file in pdf_files:
-        # noinspection PyBroadException
-        try:
-            metadata.append(Metadata(pdf_file))
-        except Exception:
-            errors.append(pdf_file)
+    for result in results:
+        if result[0]:
+            metadata.append(result[0])
+        if result[1]:
+            errors.append(result[1])
 
     return metadata, errors
 
@@ -70,3 +74,16 @@ def write_log_csv(file: str, metadata_files: list) -> None:
 
         for metadata in metadata_files:
             f.write(metadata.to_csv())
+
+
+def _get_metadata(file: str) -> (Metadata | None, str | None):
+    metadata = None
+    error = None
+
+    # noinspection PyBroadException
+    try:
+        metadata = Metadata(file)
+    except Exception:
+        error = file
+
+    return metadata, error
