@@ -20,7 +20,7 @@ if __name__ == '__main__':
                             help='Saves the output into a plain text file.')
         parser.add_argument('-c', '--csv', metavar='log_file.csv', nargs='?', help='Saves the output into a csv file.')
         parser.add_argument('-a', '--show-all', default=False, action='store_true',
-                            help='Shows scanned non-PDF files..')
+                            help='Shows scanned non-PDF files.')
         args = parser.parse_args()
 
         try:
