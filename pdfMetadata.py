@@ -1,11 +1,12 @@
 import argparse
 import signal
+import threading
 
 from application.pdfMetadata_service import get_files, get_metadata
 from crosscutting.constants import REQUIRED_PYTHON_VERSION
 from crosscutting.utils.python_utils import get_interpreter_version
 from crosscutting.utils.python_utils import handle_sigint
-from presentation.cli import print_metadata, write_log_txt
+from presentation.cli import print_metadata, write_log_txt, write_log_csv
 from presentation.messages.condition_messages import print_error, print_info, print_exception
 from presentation.utils.screen import clear_screen
 
@@ -35,10 +36,14 @@ if __name__ == '__main__':
                 print_metadata(file_metadata)
 
             if args.txt:
-                write_log_txt(args.txt, pdf_files_metadata)
+                thread_log_txt = threading.Thread(target=write_log_txt, args=(args.txt, pdf_files_metadata))
+                thread_log_txt.start()
+                thread_log_txt.join()
 
             if args.csv:
-                write_log_txt(args.csv, pdf_files_metadata)
+                thread_log_txt = threading.Thread(target=write_log_csv, args=(args.csv, pdf_files_metadata))
+                thread_log_txt.start()
+                thread_log_txt.join()
 
             if pdf_files_errors:
                 print('PDFs not scanned: ', end='')
