@@ -23,13 +23,35 @@ pdfMetadata can extract data from one PDF file or for all PDF files in a directo
 
 ## INSTALLATION
 
-Enter into the directory where is extracted pdfMetadata, e.g. ~/pdfMetadata, then runs:
+### Create a virtual environment (or venv)
 
 ```shell
-python setup.py install
+python3 -m venv pmvenv
 ```
 
+*You only have to do this the first time*
+
+### Activate the venv
+
+```shell
+source pmvenv/bin/activate
+```
+
+*You have to activate the venv every time you want to use it*
+
+### Install the requirements
+
+```shell
+pip install -r requirements.txt
+```
+
+*You only have to do this the first time*
+
 ## USAGE
+
+```shell
+python3 pdfmetadata options
+```
 
 ```shell
 usage: pdfMetadata [-h] [-t [log_file.txt]] [-c [log_file.csv]] [-a] ARGUMENTS [ARGUMENTS ...]
