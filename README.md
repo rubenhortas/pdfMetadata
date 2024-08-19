@@ -33,8 +33,16 @@ python3 -m venv pmvenv
 
 ### Activate the venv
 
+* Linux/macOS
+
 ```shell
 source pmvenv/bin/activate
+```
+
+* Windows
+
+```shell
+pmvenv\Scripts\activate
 ```
 
 *You have to activate the venv every time you want to use it*
