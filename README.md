@@ -88,4 +88,4 @@ a [discussion](https://github.com/rubenhortas/pdfMetadata/discussions/new)
 
 ## :star: Support
 
-If you find this application useful you can star this repo.
+If you find this application useful, please consider starring this repository!
