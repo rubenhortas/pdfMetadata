@@ -14,6 +14,8 @@ pdfMetadata can extract data from one PDF file or for all PDF files in a directo
 ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/rubenhortas/pdfMetadata?&logo=github)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/rubenhortas/pdfMetadata?logo=github)
 
+![GitHub](https://img.shields.io/github/license/rubenhortas/pdfMetadata)
+
 ## REQUIREMENTS
 
 * Python3
