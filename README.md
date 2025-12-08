@@ -77,15 +77,15 @@ options:
   -a, --show-all        Shows scanned non-PDF files.
 ```
 
-## Troubleshooting
+## :boom: Troubleshooting
 
 In case of any problem create an [issue](https://github.com/rubenhortas/pdfMetadata/issues/new)
 
-## Discussions
+## :question: Discussions
 
 If you want ask (or answer) a question, leave an opinion or have an open-ended conversation you can create (or join)
 a [discussion](https://github.com/rubenhortas/pdfMetadata/discussions/new)
 
-## Support
+## :star: Support
 
 If you find this application useful you can star this repo.
