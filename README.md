@@ -5,7 +5,6 @@ PDF files.
 
 pdfMetadata can extract data from one PDF file or for all PDF files in a directory (scans recursively).
 
-![GitHub repo file count](https://img.shields.io/github/directory-file-count/rubenhortas/pdfMetadata)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rubenhortas/pdfMetadata)
 ![GitHub repo size](https://img.shields.io/github/repo-size/rubenhortas/pdfMetadata)
 
