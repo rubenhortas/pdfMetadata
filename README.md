@@ -1,6 +1,6 @@
 # pdfMetadata
 
-pdfMetadata is a python script that gets and displays metadata from
+pdfMetadata is a Python script that gets and displays metadata from
 PDF files.
 
 pdfMetadata can extract data from one PDF file or for all PDF files in a directory (scans recursively).
