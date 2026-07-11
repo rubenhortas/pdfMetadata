@@ -1,5 +1,3 @@
-# Apply to project: Place in the project root directory
-# Apply globally:   Remove "tool.ruff" and place in ~/.config/ruff/settings.toml
 [tool.ruff]
 line-length = 120
 
