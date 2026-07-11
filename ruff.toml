@@ -1,0 +1,46 @@
+line-length = 120
+
+[lint]
+select = [
+    "E",    # pycodestyle errors
+    "F",    # Pyflakes
+    "I",    # isort
+    "UP",   # pyupgrade
+    "ANN",  # flake8-annotations
+    "B",    # flake8-bugbear
+    "S",    # flake8-bandit (security)
+    "SIM",  # flake8-simplify
+    "RUF",  # Ruff-specific rules
+    "N",    # PEP8 naming
+    "W",    # Pycodestyle warnings (style issues)
+    "FLY",  # Flynt – f-string conversion suggestions
+    "SLOT", # Flake8-slots – suggests use of __slots__ where appropriate
+    "PERF", # Perflint
+]
+
+extend-select = [
+    "TID",  # Flake8-tidy-imports
+    "BLE",  # Flake8-blind-except
+    "TRY",  # Tryceratops
+    "PIE",  # Flake8-pie
+    "PTH",  # flake8-use-pathlib
+    "C4",   # flake8-comprehensions
+    "INP",  # Flake8-no-pep420
+    "TC",   # Flake8-type-checking
+    "ARG",  # Flake8-unused-arguments
+    "LOG",  # flake8-logging
+    "G",    # Flake8-logging-format
+    "TD",   # Flake8-todos
+    "FIX",  # Flake8-fixme
+]
+
+ignore = [
+    "E501",    # Line too long (handled by formatter)
+    "BLE001",  # Blind exception
+    "COM812",  # Formatter conflict prevention
+    "ISC001",  # Formatter conflict prevention
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
