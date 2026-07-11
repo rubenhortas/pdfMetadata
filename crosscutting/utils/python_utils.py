@@ -1,7 +1,10 @@
 from sys import version_info
-from types import FrameType
+from typing import TYPE_CHECKING
 
 from presentation.messages.condition_messages import print_info
+
+if TYPE_CHECKING:
+    from types import FrameType
 
 
 def get_interpreter_version() -> str:
