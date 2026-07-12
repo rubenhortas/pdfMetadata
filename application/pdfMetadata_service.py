@@ -39,7 +39,6 @@ def get_files(paths: list) -> tuple:
             _sort_out_file(p)
 
         else:
-            # Si no existe o no es ni archivo ni directorio, lo guardamos como string original
             non_pdf_files.append(path_str)
 
     return pdf_files, non_pdf_files
