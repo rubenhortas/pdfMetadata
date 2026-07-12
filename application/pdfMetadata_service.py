@@ -1,11 +1,11 @@
 import multiprocessing
-import os
 from multiprocessing import Pool
+from pathlib import Path
 
 from domain.metadata import Metadata
 
 
-def get_files(paths: list) -> (list, list):
+def get_files(paths: list) -> tuple:
     """
     Returns all the files in the arguments.
 
@@ -18,34 +18,34 @@ def get_files(paths: list) -> (list, list):
     :return: (pdf_files, non_pdf_files)
     """
 
-    def _sort_out_file(file: str) -> None:
-        if file.lower().endswith('.pdf'):
-            pdf_files.append(file)
-        else:
-            non_pdf_files.append(file)
-
-    non_pdf_files = []
     pdf_files = []
+    non_pdf_files = []
 
-    for path in paths:
-        if os.path.isdir(path):
-            for root, _, files in os.walk(path):
-                for file in files:
-                    file_absolute_path = os.path.join(root, file)
+    def _sort_out_file(file_path: Path) -> None:
+        if file_path.suffix.lower() == ".pdf":
+            pdf_files.append(str(file_path.resolve()))
+        else:
+            non_pdf_files.append(str(file_path.resolve()))
 
-                    if os.path.isfile(file_absolute_path):
-                        _sort_out_file(str(file_absolute_path))
+    for path_str in paths:
+        p = Path(path_str)
 
-        elif os.path.isfile(path):
-            _sort_out_file(path)
+        if p.is_dir():
+            for file_path in p.rglob('*'):
+                if file_path.is_file():
+                    _sort_out_file(file_path)
+
+        elif p.is_file():
+            _sort_out_file(p)
 
         else:
-            non_pdf_files.append(path)
+            # Si no existe o no es ni archivo ni directorio, lo guardamos como string original
+            non_pdf_files.append(path_str)
 
     return pdf_files, non_pdf_files
 
 
-def get_metadata(pdf_files: list):
+def get_metadata(pdf_files: list) -> tuple:
     with Pool(processes=multiprocessing.cpu_count()) as pool:
         results = pool.map(_get_metadata, pdf_files)
 
@@ -62,21 +62,23 @@ def get_metadata(pdf_files: list):
 
 
 def write_log_txt(file: str, metadata_files: list) -> None:
-    with open(file, 'w') as f:
+    with open(file, "w") as f:
         for metadata in metadata_files:
             f.write(metadata.to_txt())
 
 
 def write_log_csv(file: str, metadata_files: list) -> None:
-    with open(file, 'w') as f:
-        f.write('File, Path, Title, Author, Creator, Subject, Producer, Creation date, Modification date, '
-                'Encrypted, Pages, Size, Keywords\n')
+    with open(file, "w") as f:
+        f.write(
+            "File, Path, Title, Author, Creator, Subject, Producer, Creation date, Modification date, "
+            "Encrypted, Pages, Size, Keywords\n"
+        )
 
         for metadata in metadata_files:
             f.write(metadata.to_csv())
 
 
-def _get_metadata(file: str) -> (Metadata | None, str | None):
+def _get_metadata(file: str) -> tuple:
     metadata = None
     error = None
 
