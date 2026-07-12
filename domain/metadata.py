@@ -34,29 +34,19 @@ class Metadata:
         document = PdfReader(self.file_abs_path, False)
 
         try:
+            meta = document.metadata or {}
+
             self.encrypted = "Yes" if document.is_encrypted else "No"
             self.num_pages = str(len(document.pages))
+            self.title = meta.get("/Title", "")
+            self.keywords = meta.get("/Keywords", "")
+            self.author = meta.get("/Author", "")
+            self.creator = meta.get("/Creator", "")
+            self.producer = meta.get("/Producer", "")
+            self.creation_date = get_date(meta.get("/CreationDate", ""))
+            self.modification_date = get_date(meta.get("/ModDate", ""))
+            self.subject = getattr(meta, "subject", "")
 
-            metadata = document.metadata
-
-            if metadata is not None:
-                self.title = metadata.get("/Title", "")
-                self.keywords = metadata.get("/Keywords", "")
-                self.author = metadata.get("/Author", "")
-                self.creator = metadata.get("/Creator", "")
-                self.producer = metadata.get("/Producer", "")
-                self.creation_date = get_date(metadata.get("/CreationDate", ""))
-                self.modification_date = get_date(metadata.get("/ModDate", ""))
-                self.subject = getattr(metadata, "subject", "")
-            else:
-                self.title = ""
-                self.keywords = ""
-                self.author = ""
-                self.creator = ""
-                self.producer = ""
-                self.creation_date = ""
-                self.modification_date = ""
-                self.subject = ""
         except DependencyError:
             pass
 
